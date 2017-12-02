@@ -1,4 +1,20 @@
- <div class="content">
+<script type="text/javascript">
+  $(function(){
+    $('#namatoko').keyup(function(){
+      displayAll();
+    });
+    $('#namatoko').keyup(function(){
+      displayAll();
+    });
+
+    function displayAll(){
+      thisVal = $('#namatoko').val();
+      $('#displaynamatoko').html(thisVal);
+    }
+  });
+</script> 
+
+<div class="content">
   <div class="container-fluid">
     <div class="row">
       <div class="content-header">
@@ -20,528 +36,488 @@
               Atur Toko
             </a>
           </li> 
-          <li class="active">Edit Toko
+          <li class="active">Tambah Toko
           </li>
         </ol>
       </div>
     </div>
-    <div class="row">
+    <div class="row"> 
+
       <div class="col-md-12">
-        <div class="card card-wizard" id="wizardCard">
-          <form id="wizardForm" method="" action="#" novalidate="novalidate">
-            <div class="content">
+        <div class="card card-wizard" id="wizardCard"> 
+          <?php echo form_open_multipart('setting/toko/edit/'.$storeid); ?>
+          <div class="content">  
+            <div role="content">
               <ul class="nav nav-pills">
                 <li class="active" style="width: 33.3333%;">
-                  <a href="#tab1" data-toggle="tab" aria-expanded="true">Identitas Toko
+                  <a href="#home" data-toggle="tab" aria-controls="home">Identitas Toko
                   </a>
                 </li>
                 <li style="width: 33.3333%;">
-                  <a href="#tab2" data-toggle="tab">Saluran Toko
+                  <a href="#saluran" data-toggle="tab">Saluran Toko
                   </a>
                 </li>
-                <li style="width: 33.3333%;">
-                  <a href="#tab3" data-toggle="tab">Buat Toko
+                <li class="width-29percent">
+                  <a href="#buattoko" data-toggle="tab">Buat Toko
                   </a>
                 </li>
-              </ul>
+              </ul> 
+
+              <!-- Tab panes -->
               <div class="tab-content">
-                <div class="tab-pane active" id="tab1"> 
-                  <form id="tambahIdentitasToko" action="#" method="" novalidate="">
+                <div role="tabpanel" class="tab-pane active" id="home">
+                  <div class="tab-pane active" id="tab1"> 
+
                     <div class="row">
-                      <div class="col-md-4 col-md-offset-4">
+                      <div class="col-md-4 col-sm-4 col-md-offset-4 col-sm-offset-4">
                         <div class="text-center bg-form">
-                          <div class="img-section"> 
-                            <img src="<?php echo base_url('assets/img/icon/icon-fptoko.svg');?>" id="imagePreview" class="fp-toko-edit" alt="Profile picture"> 
-                            <div class="col-lg-12"> 
-                            </div>
+                          <div class="img-section">
+
+
+                           <?php if (count($detailtoko['Photo'])>0) { ?>
+                           <img src="<?php echo $detailtoko['Photo'];?>" class="imgCircle img-circle fp-toko" id="imagePreview" alt="Profile picture"> 
+                           <?php } else { ?>
+                           <img src="<?php echo base_url('assets/img/icon/icon-fptoko.svg');?>" id="imagePreview" class="fp-toko-edit" alt="Profile picture"> 
+                           <?php } ?> 
+
+                           <span class="fake-icon-edit" id="PicUpload" style="color: #000;">
+                            <img src="<?php echo base_url('assets/img/icon/plus-upload_img.svg');?>" class="icon-add-image" alt="Profile picture">
+
+                          </span>
+                          <div class="col-lg-12"> 
+                            <input type="checkbox" class="form-control" id="checker">
                           </div>
-                          <label for="file-upload" class="custom-file-upload">
-                            <img src="<?php echo base_url('assets/img/icon/icon-edit-detail.svg');?>" width="15" class="" alt="icon">  Ubah Foto Toko
-                          </label>
-                          <input class="custom-upload" name="file-upload" id="file-upload" type="file"/>
                         </div>
+                        <input type="file" id="image-input" onchange="readURL(this);" accept="image/*"  class="form-control form-input Profile-input-file" name="userfile" >
                       </div>
                     </div>
-                    <div class="row">
-                      <div class="col-md-4 col-sm-4 col-md-offset-4 col-sm-offset-4">
-                        <div class="form-group"> 
-                          <input class="form-control" value="XYZ Mega Store" type="text" name="namatoko" placeholder="Nama Toko" required="true">
-                        </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4 col-sm-4 col-md-offset-4 col-sm-offset-4">
+                      <div class="form-group"> 
+                        <input class="form-control" type="text" id="nama" name="namatoko" placeholder="Nama Toko" required="" value="<?php echo $detailtoko['StoreName'];?>">
                       </div>
                     </div>
-                    <div class="row"> 
-                      <div class="col-md-4 col-sm-4 col-md-offset-4 col-sm-offset-4">
-                        <div class="input-group" style="width:100%;">
-                          <input placeholder="Alamat" type="text" class="form-control" value="Jl. Pajajaran No. 1 Bogor," required="true">
-                          <span class="input-group-btn"> 
-                            <a href="#alamattoko" data-toggle="modal" class="icon-right" style="left: 5px;">
-                              <img src="<?php echo base_url('assets/img/icon/icon-lokasi.svg');?>" style="width: 20px !important;" class="" alt="User Image">
-                            </a> 
-                          </span>          
-                        </div>
+                  </div>
+                  <div class="row"> 
+                    <div class="col-md-4 col-sm-4 col-md-offset-4 col-sm-offset-4">
+                      <div class="form-group"> 
+                      </div> 
+                      <div class="input-group" style="width:100%;">
+                        <input placeholder="Alamat" type="text" class="form-control" value="<?php echo $detailtoko['StoreAddress'];?>" name="alamat" >
+                        <span class="input-group-btn"> 
+                          <a href="#" data-toggle="modal" data-target="#alamattoko" class="icon-right" style="left: 5px;">
+                            <img src="<?php echo base_url('assets/img/icon/icon-lokasi.svg');?>" style="width: 20px !important;" class="" alt="User Image">
+                          </a> 
+                        </span>          
+                      </div>
+
+                      <p align="center">
+                        <br>
+                        <a href="#saluran" data-toggle="tab" class="btn btn-warning btn-fill btn-wd btn-next">Selanjutnya</a>
+                      </p>
+                    </div> 
+                  </div>
+                  <!-- </form> -->
+
+                  <div class="modal brandmodal fade" id="alamattoko" tabindex="-1" role="dialog" aria-labelledby="">
+                    <div class="modal-dialog modal-lg" role="document" >
+                      <div class="modal-content">
+                        <div class="modal-header">
+                         <a type="button" class="boxclose" data-dismiss="modal"></a>  
+                       </div>
+                       <div class="modal-body p-t-0"> 
+
+                        <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+                        <div id="map"></div> 
+
+                        <input type="hidden" id="lat" readonly="yes" name="lat" value="<?php echo $detailtoko['Latitude'];?>"> 
+                        <input type="hidden" id="lng" readonly="yes" name="long" value="<?php echo $detailtoko['Longitude'];?>">
+
+
                       </div> 
                     </div>
-                  </form>
-                </div>
-                <div class="tab-pane" id="tab2">
-                  <h5 class="text-center">Pilih Saluran Tokomu
-                  </h5> 
-                  <div class="table-responsive">
-                    <table class="table">
-                      <tbody>
-                        <tr> 
-                          <td>
-                            <a style="color: #333;" href="#" data-toggle="modal" data-target="#saluranOffline">
-                              <img class="social" src="<?php echo base_url('assets/img/icon/icon-ig.svg');?>"> Instagram
-                            </a>
-                          </td>   
-                          <td class="td-actions text-right"> 
-                            <a class="btn btn-default btn-simple p-0" href="#" data-toggle="modal" data-target="#saluranOffline">
-                              <i style="color: #333;" class="pe-7s-angle-right font-30">
-                              </i>
-                            </a> 
-                          </td>
-                        </tr>
-                        <tr> 
-                          <td>
-                            <img class="social" src="<?php echo base_url('assets/img/icon/icon-fb.svg');?>"> Facebook
-                          </td>   
-                          <td class="td-actions text-right"> 
-                            <a class="btn btn-default btn-simple p-0" href="#">
-                              <i style="color: #333;" class="pe-7s-angle-right font-30">
-                              </i>
-                            </a> 
-                          </td>
-                        </tr>
-                        <tr> 
-                          <td>
-                            <img class="social" src="<?php echo base_url('assets/img/icon/icon-twitter.svg');?>"> Twitter
-                          </td>   
-                          <td class="td-actions text-right"> 
-                            <a class="btn btn-default btn-simple p-0" href="#">
-                              <i style="color: #333;" class="pe-7s-angle-right font-30">
-                              </i>
-                            </a> 
-                          </td>
-                        </tr>
-                        <tr> 
-                          <td>
-                            <a style="color: #333;" href="#" data-toggle="modal" data-target="#saluranOnline">
-                              <img class="social" src="<?php echo base_url('assets/img/icon/logo-blibli.svg');?>"> Blibli
-                            </a>
-                          </td>   
-                          <td class="td-actions text-right"> 
-                            <a class="btn btn-default btn-simple p-0" href="#" data-toggle="modal" data-target="#saluranOnline">
-                              <i style="color: #333;" class="pe-7s-angle-right font-30">
-                              </i>
-                            </a> 
-                          </td>
-                        </tr>
-                        <tr> 
-                          <td>
-                            <img class="social" src="<?php echo base_url('assets/img/icon/logo-bl.svg');?>"> Bukalapak
-                          </td>   
-                          <td class="td-actions text-right"> 
-                            <a class="btn btn-default btn-simple p-0" href="#">
-                              <i style="color: #333;" class="pe-7s-angle-right font-30">
-                              </i>
-                            </a> 
-                          </td>
-                        </tr>
-                        <tr> 
-                          <td>
-                            <a style="color: #333;" href="#" data-toggle="modal" data-target="#Unlink">
-                              <img class="social" src="<?php echo base_url('assets/img/icon/logo-tokped.svg');?>"> Tokopedia
-                            </a>
-                          </td>   
-                          <td class="td-actions text-right"> 
-                            <a class="btn btn-default btn-simple p-0" href="#" data-toggle="modal" data-target="#Unlink">
-                              <i style="color: #333;" class="pe-7s-angle-right font-30">
-                              </i>
-                            </a> 
-                          </td>
-                        </tr> 
-                      </tbody>
-                    </table>
-                  </div> 
-                </div>
-                <div class="tab-pane" id="tab3">
-                  <div class="text-center">
-                    <div class="author">
-                      <img class="avatar-toko border-gray" src="<?php echo base_url('assets/img/icon/icon-notif_toko.svg');?>" alt="...">
-                      <a href="#"> 
-                        <h4 class="title">XYZ Mega Store
-                          <br>
-                          <small>Jalan Pajajaran No. 1 Bogor, West Java, Indonesia
-                          </small>
-                        </h4>
-                      </a>
-                    </div>
                   </div>
-                  <div class="center">
-                    <fieldset class="scheduler-border">
-                      <legend class="scheduler-border">Saluran Penjualan
-                      </legend>
-                      <div class="text-center">
-                        <img class="social" src="<?php echo base_url('assets/img/icon/icon-ig.svg');?>"> 
-                        <img class="social" src="<?php echo base_url('assets/img/icon/icon-fb.svg');?>">
-                        <img class="social" src="<?php echo base_url('assets/img/icon/icon-twitter.svg');?>"> 
-                        <img class="social" src="<?php echo base_url('assets/img/icon/logo-blibli.svg');?>">
-                      </div>
-                    </fieldset> 
+                </div>
+
+
+              </div>
+            </div>
+            <!-- ##### -->
+            <div role="tabpanel" class="tab-pane" id="saluran">
+              <h5 class="text-center color-grey-light">Pilih Saluran Tokomu
+              </h5> 
+              <div class="table-responsive">
+                <table class="table"> 
+                  <tbody>
+                    <tr> 
+                      <td>
+                        <a style="color: #333;" href="#" data-toggle="modal" data-target="#saluranOffline">
+                          <img class="social" src="<?php echo base_url('assets/img/icon/icon-ig.svg');?>"> Instagram
+                        </a>
+                      </td>   
+                      <td class="td-actions text-right"> 
+                        <a class="btn btn-default btn-simple p-0" href="#" data-toggle="modal" data-target="#saluranOffline">
+                          <i style="color: #333;" class="pe-7s-angle-right font-30">
+                          </i>
+                        </a> 
+                      </td>
+                    </tr>
+                    <tr> 
+                      <td>
+                        <img class="social" src="<?php echo base_url('assets/img/icon/icon-fb.svg');?>"> Facebook
+                      </td>   
+                      <td class="td-actions text-right"> 
+                        <a class="btn btn-default btn-simple p-0" href="#">
+                          <i style="color: #333;" class="pe-7s-angle-right font-30">
+                          </i>
+                        </a> 
+                      </td>
+                    </tr>
+                    <tr> 
+                      <td>
+                        <img class="social" src="<?php echo base_url('assets/img/icon/icon-twitter.svg');?>"> Twitter
+                      </td>   
+                      <td class="td-actions text-right"> 
+                        <a class="btn btn-default btn-simple p-0" href="#">
+                          <i style="color: #333;" class="pe-7s-angle-right font-30">
+                          </i>
+                        </a> 
+                      </td>
+                    </tr>
+                    <tr> 
+                      <td>
+                        <a style="color: #333;" href="#" data-toggle="modal" data-target="#saluranOnline">
+                          <img class="social" src="<?php echo base_url('assets/img/icon/logo-blibli.svg');?>"> Blibli
+                        </a>
+                      </td>   
+                      <td class="td-actions text-right"> 
+                        <a class="btn btn-default btn-simple p-0" href="#" data-toggle="modal" data-target="#saluranOnline">
+                          <i style="color: #333;" class="pe-7s-angle-right font-30">
+                          </i>
+                        </a> 
+                      </td>
+                    </tr>
+                    <tr> 
+                      <td>
+                        <img class="social" src="<?php echo base_url('assets/img/icon/logo-bl.svg');?>"> Bukalapak
+                      </td>   
+                      <td class="td-actions text-right"> 
+                        <a class="btn btn-default btn-simple p-0" href="#">
+                          <i style="color: #333;" class="pe-7s-angle-right font-30">
+                          </i>
+                        </a> 
+                      </td>
+                    </tr>
+                    <tr> 
+                      <td>
+                        <a style="color: #333;" href="#" data-toggle="modal" data-target="#Unlink">
+                          <img class="social" src="<?php echo base_url('assets/img/icon/logo-tokped.svg');?>"> Tokopedia
+                        </a>
+                      </td>   
+                      <td class="td-actions text-right"> 
+                        <a class="btn btn-default btn-simple p-0" href="#" data-toggle="modal" data-target="#Unlink">
+                          <i style="color: #333;" class="pe-7s-angle-right font-30">
+                          </i>
+                        </a> 
+                      </td>
+                    </tr> 
+                  </tbody>
+                </table>
+
+                <center>
+                  <br>
+                  <div class="btn-group">
+                    <a href="#home" data-toggle="tab" class="btn btn-default btn-fill ">Sebelumnya</a>
+                    <a href="#buattoko" data-toggle="tab" class="btn btn-warning btn-fill btn-wd btn-next">Selanjutnya</a>
+                  </div>
+                </center>
+              </div>
+            </div>  
+
+            <div role="tabpanel" class="tab-pane" id="buattoko">
+                     <!--  <div class="text-center">
+                        <div class="author">
+                          <img class="avatar-toko border-gray" src="<?php echo base_url('assets/img/icon/icon-notif_toko.svg');?>" alt="...">
+                          <a href="#"> 
+                            <h4 class="title">
+                              <p id="nama"></p>
+                              <br>
+                              <small>Jalan Pajajaran No. 1 Bogor, West Java, Indonesia
+                              </small>
+                            </h4>
+                          </a>
+                        </div>
+                      </div> -->
+                     <!--  <div class="center">
+                        <fieldset class="scheduler-border">
+                          <legend class="scheduler-border">Saluran Penjualan
+                          </legend>
+                          <div class="text-center">
+                            <img class="social" src="<?php echo base_url('assets/img/icon/icon-ig.svg');?>"> 
+                            <img class="social" src="<?php echo base_url('assets/img/icon/icon-fb.svg');?>">
+                            <img class="social" src="<?php echo base_url('assets/img/icon/icon-twitter.svg');?>"> 
+                            <img class="social" src="<?php echo base_url('assets/img/icon/logo-blibli.svg');?>">
+                          </div>
+                        </fieldset> 
+                      </div> -->
+
+                      <center>
+                        <br>
+                        <div class="btn-group">
+                          <a href="#saluran" data-toggle="tab" class="btn btn-default btn-fill ">Sebelumnya</a> 
+                        </div>
+                        <button class="btn btn-success btn-fill" >Ubah Toko</button> 
+                      </center>
+
+                    </form>
                   </div>
                 </div>
               </div>
+
+              <!-- ###### --> 
+
             </div>
-            <div class="row">
-              <div class="text-center">
-                <div class="footer">
-                  <button type="button" class="btn btn-warning btn-wd btn-back disabled" style="display: none;">Sebelumnya
-                  </button>
-                  <button type="button" class="btn btn-warning btn-fill btn-wd btn-next">Berikutnya
-                  </button>
-                  <button type="button" class="btn btn-success btn-fill btn-wd btn-finish" data-toggle="modal" data-target="#sukses" data-dismiss="modal">Simpan
-                  </button>
-                  <div class="clearfix">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-</div>
-<div class="modal brandmodal fade" id="saluranOnline" tabindex="-1" role="dialog" aria-labelledby="">
-  <div class="modal-dialog" role="document" style="width: 28%;">
-    <div class="modal-content">
-      <div class="modal-header">
-        <a type="button" class="boxclose" data-dismiss="modal">
-        </a>
-        <h5 style="padding-left: 25px;padding-right:50px;" class="modal-title text-left color-blue font-thin">
-          <img src="<?php echo base_url('assets/img/icon/logo-blibli.svg');?>" class="modal-logo"> Sign In to Blibli
-        </h5>
-      </div>
-      <div  style="padding-left: 50px;padding-right:50px;"class="modal-body">
-        <form class="" id="" role="form" method="POST" action="">
-          <div class="form-group"> 
-            <input id="signupEmail" type="email" required="" maxlength="50" class="form-control" placeholder="Username">
-          </div> 
-          <div class="input-group" style="width:100%;">
-            <input type="password" placeholder="Kata Sandi" class="form-control pwd" value="" required>
-            <span class="input-group-btn" style="border-bottom: 1px solid  #a0a9b4"> 
-              <a href="#" class="icon-pass reveal pass" style="left: 5px;background-color: transparent;">
-                <img src="<?php echo base_url('assets/img/icon/icon-hide_passwd.svg');?>" style="width: 20px !important;" id="fa-eye" alt="User Image">
-                <img src="<?php echo base_url('assets/img/icon/icon-viewpasswd.svg');?>" style="width: 20px !important;display: none;" id="fa-eye-slash" alt="User Image">
-              </a> 
-            </span>          
           </div>
-          <br>
-          <div class="form-group">
-            <button id="signupSubmit" type="submit" class="btn btn-success btn-fill btn-block">Masuk
-            </button>
-          </div> 
-          <br>
-        </form>
-      </div> 
-    </div>
-  </div>
-</div>
-<div class="modal brandmodal fade" id="saluranOffline" tabindex="-1" role="dialog" aria-labelledby="">
-  <div class="modal-dialog" role="document" style="width: 28%;">
-    <div class="modal-content">
-      <div class="modal-header">
-        <a type="button" class="boxclose" data-dismiss="modal">
-        </a>
-        <h4 class="modal-title">
-          <img src="<?php echo base_url('assets/img/icon/icon-ig.svg');?>" class="modal-logo">
-        </h4>
-      </div>
-      <div class="modal-body p-t-0" style="padding-left: 70px;padding-right:70px;"> 
-        <h4 class="text-center m-t-0 font-thin"> 
-          Instagram
-        </h4>
-        <p class="text-center color-blue">Tambahkan Instagram sebagai salah satu saluran penjualan secara offline
-        </p>
-        <div class="form-group">
-          <button id="signupSubmit" type="submit" class="btn btn-success btn-fill btn-block">Tambahkan
-          </button>
-        </div>
-      </div> 
-    </div>
-  </div>
-</div>
-<div class="modal brandmodal fade" id="Unlink" tabindex="-1" role="dialog" aria-labelledby="">
-  <div class="modal-dialog" role="document" style="width: 28%;">
-    <div class="modal-content">
-      <div class="modal-header">
-        <a type="button" class="boxclose" data-dismiss="modal">
-        </a> 
-        <h4 class="modal-title">
-          <img src="<?php echo base_url('assets/img/icon/logo-tokped.svg');?>" class="modal-logo">
-        </h4>
-      </div>
-      <div class="modal-body p-t-0" style="padding-left: 70px;padding-right:70px;"> 
-        <h6 class="text-center m-10" style="font-size: 12px;margin-top: -12px;">Terhubung sebagai XYZ Mega Store
-        </h6>
-        <p class="text-center color-blue">Putuskan Tokopedia sebagai salah satu saluran penjualan online
-        </p>
-        <div class="form-group">
-          <button id="signupSubmit" type="submit" class="btn btn-danger btn-fill btn-block">Putuskan
-          </button>
-        </div>
-      </div> 
-    </div>
-  </div>
-</div>
-<div class="modal brandmodal fade" id="alamattoko" tabindex="-1" role="dialog" aria-labelledby="">
-  <div class="modal-dialog modal-lg" role="document" >
-    <div class="modal-content">
-      <div class="modal-header">
-        <a type="button" class="boxclose" data-dismiss="modal">
-        </a> 
-        <div class="form-group pull-right">
-          <label class="sr-only">Search
-          </label>
-          <input id="pac-input" type="input" class="form-control bordered" placeholder=" Cari Lokasi Disini">
         </div>
       </div>
-      <div class="modal-body p-t-0"> 
-        <div class="center">
-          <button type="submit" class="button-pilih-lokasi btn btn-warning btn-fill" data-dismiss="modal">PILIH
-          </button>
-        </div>
-        <div id="results">
-        </div>
-        <div id="map">
-        </div>
-      </div> 
     </div>
   </div>
-</div>
-<div class="modal brandmodal fade" id="sukses" tabindex="-1" role="dialog" aria-labelledby="">
-  <div class="modal-dialog" role="document" style="width: 28%;">
-    <div class="modal-content">
-      <div class="modal-header">
-        <a type="button" class="boxclose" data-dismiss="modal">
-        </a> 
-      </div>
-      <div class="modal-body p-t-0" style="padding-left: 70px;padding-right:70px;"> 
-        <h4 class="text-center m-b-40 font-thin"> 
-          Sukses
-        </h4>
-        <p class="text-center m-b-40">Anda sukses menambahkan toko baru
-        </p>
-        <div class="form-group">
-          <a href="aturtoko.html" class="btn btn-info btn-fill btn-block">OK
-          </a>
-        </div>
-      </div> 
-    </div>
-  </div>
-</div> 
+</div>  
 </body>
 
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?libraries=places&sensor=false"></script>
 
- <script>
-var map;
-    var marker;
-    var positions = [];
-    var positionsIdx = 1;
-    function placeMarker(location) {
 
-      if (marker) {
-        //if marker already was created change positon
-        marker.setPosition(location);
+<style>
+      /* Always set the map height explicitly to define the size of the div
+      * element that contains the map. */
+      #map {
+        height: 100%;
       }
-      else {
-        
-        //create a marker
-        marker = new google.maps.Marker({
-          position: location,
-          map: map,
-          draggable: true
-        }
-                                       );
-
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
       }
-    }
-    function initialize() {
-      var centerPosition = new google.maps.LatLng(-6.273298, 106.869469);
-      var options = {
-        zoom: 13,
-        center: centerPosition,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-      };
-      map = new google.maps.Map($('#map')[0], options);
-      //generate an array of positions.
-      for (i = 0; i < 100; i++) {
-        var lat = -6.273298 + (i / 1000);
-        var lng = 106.869469 + (i / 1000);
-        var latLng = new google.maps.LatLng(lat, lng);
-        positions.push(latLng);
-
-        //map.setCenter(latLng);
+      .controls {
+        margin-top: 10px;
+        border: 1px solid transparent;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        height: 32px;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
       }
-      //create marker
-      placeMarker(positions[0]); 
+
+      #pac-input {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        margin-left: 12px;
+        padding: 0 11px 0 13px;
+        text-overflow: ellipsis;
+        width: 300px;
+      }
+
+      #pac-input:focus {
+        border-color: #4d90fe;
+      }
+
+      .pac-container {
+        font-family: Roboto;
+      }
+
+      #type-selector {
+        color: #fff;
+        background-color: #4d90fe;
+        padding: 5px 11px 0px 11px;
+      }
+
+      #type-selector label {
+        font-family: Roboto;
+        font-size: 13px;
+        font-weight: 300;
+      }
+      #target {
+        width: 345px;
+      }
+    </style>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCLB-Nrm5Mz6DUnEphxji4YUiykmOOjytU&libraries=places" type="text/javascript"></script> 
+
+
+    <script type="text/javascript">
+
+  // copy value
 
 
 
-      //untuk search box
-var searchBox = new google.maps.places.SearchBox(document.getElementById('pac-input'));
+  //map.js
 
-//place change box
-google.maps.event.addListener(searchBox,'places_changed',function(){
-  var places = searchBox.getPlaces();
+//Set up some of our variables.
+var map; //Will contain map object.
+var marker = false; ////Has the user plotted their location marker? 
 
-  var bounds = new google.maps.LatLngBounds();
-  var i, place;
+//Function called to initialize / create the map.
+//This is called when the page has loaded.
+function initMap() { 
 
-  for(i=0; place=places[i];i++){
-    //console.log(place.geometry.location);
-    bounds.extend(place.geometry.location);
-    marker.setPosition(place.geometry.location);
+    //The center location of our map.
+    var centerOfMap = new google.maps.LatLng(<?=$detailtoko['Latitude']?> , <?=$detailtoko['Longitude']?>);
+
+    //Map options.
+    var options = {
+      center: centerOfMap, //Set center.
+      zoom: 13 //The zoom value.
+    };
+
+    //Create the map object.
+    map = new google.maps.Map(document.getElementById('map'), options);
+
+
+      // Create the search box and link it to the UI element.
+      var input = document.getElementById('pac-input');
+      var searchBox = new google.maps.places.SearchBox(input);
+      map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+       // Bias the SearchBox results towards current map's viewport.
+       map.addListener('bounds_changed', function() {
+        searchBox.setBounds(map.getBounds());
+      });
+
+
+       var markers = [];
+        // Listen for the event fired when the user selects a prediction and retrieve
+        // more details for that place.
+        searchBox.addListener('places_changed', function() {
+          var places = searchBox.getPlaces();
+
+          if (places.length == 0) {
+            return;
+          }
+
+          // Clear out the old markers.
+          markers.forEach(function(marker) {
+            marker.setMap(null);
+          });
+          markers = [];
+
+          // For each place, get the icon, name and location.
+          var bounds = new google.maps.LatLngBounds();
+          places.forEach(function(place) {
+            if (!place.geometry) {
+              console.log("Returned place contains no geometry");
+              return;
+            }
+            var icon = {
+              url: place.icon,
+              size: new google.maps.Size(71, 71),
+              origin: new google.maps.Point(0, 0),
+              anchor: new google.maps.Point(17, 34),
+              scaledSize: new google.maps.Size(25, 25)
+            };
+
+            // Create a marker for each place.
+            markers.push(new google.maps.Marker({
+              map: map,
+              icon: icon,
+              title: place.name,
+              position: place.geometry.location
+            }));
+
+            if (place.geometry.viewport) {
+              // Only geocodes have viewport.
+              bounds.union(place.geometry.viewport);
+            } else {
+              bounds.extend(place.geometry.location);
+            }
+          });
+          map.fitBounds(bounds);
+        });
+
+
+    //Listen for any clicks on the map.
+    google.maps.event.addListener(map, 'click', function(event) {                
+        //Get the location that the user clicked.
+        var clickedLocation = event.latLng;
+        //If the marker hasn't been added.
+        if(marker === false){
+            //Create the marker.
+            marker = new google.maps.Marker({
+              position: clickedLocation,
+              map: map,
+                draggable: true //make it draggable
+              });
+            //Listen for drag events!
+            google.maps.event.addListener(marker, 'dragend', function(event){
+              markerLocation();
+            });
+          } else{
+            //Marker has already been added, so just change its location.
+            marker.setPosition(clickedLocation);
+          }
+        //Get the marker's location.
+        markerLocation();
+      });
   }
-  map.fitBounds(bounds);
-  map.setZoom(15);
-});
- 
+
+//This function will get the marker's current location and then add the lat/long
+//values to our textfields so that we can save the location.
+function markerLocation(){
+    //Get location.
+    var currentLocation = marker.getPosition();
+    //Add lat and lng values to a field that we can save.
+    document.getElementById('lat').value = currentLocation.lat(); //latitude
+    document.getElementById('lng').value = currentLocation.lng(); //longitude
+  }
+
+
+//Load the map when the page has finished loading.
+google.maps.event.addDomListener(window, 'load', initMap);
+</script>
+
+
+
+<script type="text/javascript">
+  $().ready(function(){
+    $('#tambahIdentitasToko').validate();
+  }
+  );
+</script>
+<script>
+  $('input[id=base-input]').change(function() {
+    $('#fake-input').val($(this).val().replace("C:\\fakepath\\", ""));
+  }
+  );
+  <!--==================Javascript code for custom input type file on button ================-->
+  $('input[id=main-input]').change(function() {
+    console.log($(this).val());
+    var mainValue = $(this).val();
+    if(mainValue == ""){
+      document.getElementById("fake-btn").innerHTML = "Choose File";
     }
-
-    google.maps.event.addDomListener(window, 'load', initialize);
-
-   $(function() {
-
-  $('#alamattoko').on('shown.bs.modal', function(){
-    google.maps.event.trigger(map, 'resize');
-    map.setCenter(new google.maps.LatLng(-6.273298,  106.869469));
-  });
-
-});
-  </script>
-
-  <script type="text/javascript">
-    $().ready(function(){
-      var $validator = $("#wizardForm").validate({
-        rules: {
-          email: {
-            required: true,
-            email: true,
-            minlength: 5
-          }
-          ,
-          first_name: {
-            required: false,
-            minlength: 5
-          }
-          ,
-          last_name: {
-            required: false,
-            minlength: 5
-          }
-          ,
-          website: {
-            required: true,
-            minlength: 5,
-            url: true
-          }
-          ,
-          framework: {
-            required: false,
-            minlength: 4
-          }
-          ,
-          cities: {
-            required: true
-          }
-          ,
-          price:{
-            number: true
-          }
-        }
-      }
-                                                );
-      // you can also use the nav-pills-[blue | azure | green | orange | red] for a different color of wizard
-      $('#wizardCard').bootstrapWizard({
-        tabClass: 'nav nav-pills',
-        nextSelector: '.btn-next',
-        previousSelector: '.btn-back',
-        onNext: function(tab, navigation, index) {
-          var $valid = $('#wizardForm').valid();
-          if(!$valid) {
-            $validator.focusInvalid();
-            return false;
-          }
-        }
-        ,
-        onInit : function(tab, navigation, index){
-          //check number of tabs and fill the entire row
-          var $total = navigation.find('li').length;
-          $width = 100/$total;
-          $display_width = $(document).width();
-          if($display_width < 600 && $total > 3){
-            $width = 50;
-          }
-          navigation.find('li').css('width',$width + '%');
-        }
-        ,
-        onTabClick : function(tab, navigation, index){
-          // Disable the posibility to click on tabs
-          return false;
-        }
-        ,
-        onTabShow: function(tab, navigation, index) {
-          var $total = navigation.find('li').length;
-          var $current = index+1;
-          var wizard = navigation.closest('.card-wizard');
-          // If it's the last tab then hide the last button and show the finish instead
-          if($current >= $total) {
-            $(wizard).find('.btn-next').hide();
-            $(wizard).find('.btn-finish').show();
-          }
-          else if($current == 1){
-            $(wizard).find('.btn-back').hide();
-          }
-          else {
-            $(wizard).find('.btn-back').show();
-            $(wizard).find('.btn-next').show();
-            $(wizard).find('.btn-finish').hide();
-          }
-        }
-      }
-                                      );
+    else{
+      document.getElementById("fake-btn").innerHTML = mainValue.replace("C:\\fakepath\\", "");
     }
-             );
-    function onFinishWizard(){
-      //here you can do something, sent the form to server via ajax and show a success message with swal
-      swal("Sukses", "Anda sukses memperbarui toko baru", "success");
-    }
-  </script>
-  <script type="text/javascript">
-    $().ready(function(){
-      $('#tambahIdentitasToko').validate();
-    }
-             );
-  </script>
-  <script type="text/javascript">
-    $('#file-upload').change(function(){
-      readImgUrlAndPreview(this);
-      function readImgUrlAndPreview(input){
+  }
+  );
+  <!--=========================input type file change on button ends here====================-->
+      //    ===================== snippet for profile picture change ============================ //
+      function readURL(input) {
         if (input.files && input.files[0]) {
           var reader = new FileReader();
           reader.onload = function (e) {
-            $('#imagePreview').attr('src', e.target.result);
-          }
-        };
-        reader.readAsDataURL(input.files[0]);
+            $('.imgCircle')
+            .attr('src', e.target.result)
+            .width(114)
+            .height(114);
+          };
+          reader.readAsDataURL(input.files[0]);
+        }
       }
-    }
-                            );
+    //    =================================== ends here ============================================ //
   </script>
   <script type="text/javascript">
     $(".reveal").on('click',function() {
@@ -550,8 +526,7 @@ google.maps.event.addListener(searchBox,'places_changed',function(){
       if (x.style.display === "none") {
         x.style.display = "block";
         y.style.display = "none";
-      }
-      else {
+      } else {
         x.style.display = "none";
         y.style.display = "block";
       }
@@ -559,10 +534,8 @@ google.maps.event.addListener(searchBox,'places_changed',function(){
       var $pwd = $(".pwd");
       if ($pwd.attr('type') === 'password') {
         $pwd.attr('type', 'text');
-      }
-      else {
+      } else {
         $pwd.attr('type', 'password');
       }
-    }
-                   );
+    });
   </script>

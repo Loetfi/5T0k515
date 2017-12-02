@@ -7,14 +7,31 @@ class Tim extends CI_Controller {
 	{
 		parent::__construct();
 		checkLogin();
+		date_default_timezone_set("Asia/Jakarta");
 	}
 
 
 	public function index()
-	{
+	{ 
+		// print_r($this->session->all_userdata());
+
+		################################################
+		$userdata  = $this->session->userdata('userdata');
+		$jwt = $userdata['token'];   
+
+		$url = linkservice('stoksis') ."api/accounts/account_hierarchy/";
+		$method = 'GET';
+		$responseApi = ngeCurl($url,'', $method , $jwt);
+		$res = json_decode($responseApi,true);
+
+		// print_r($res);
+		// exit();
+
+		$data['tim'] = $res['data'];
+		################################################
+
 		$data['title'] = 'Atur Tim';
 		$template = 'setting/tim';
-
 		template($template , $data);		
 	}
 
@@ -27,39 +44,42 @@ class Tim extends CI_Controller {
 				// print_r($_POST);
 			// print_r($_FILES);
 
+			$userdata  = $this->session->userdata('userdata');
+			$jwt = $userdata['token'];   
 			$param = array (
 				"image_path" => @$_POST['userfile'],	
 				"username" => @$_POST['username'],
-				"is_owner" => @$_POST['akses'],
+				"is_owner" => intval(@$_POST['akses']),
 				"firstname" => @$_POST['firstname'],
 				"email" => @$_POST['email'],
 				"password" => @$_POST['password'],
 				"confirm_password" => @$_POST['confirm_password'],
 				"lastname" => @$_POST['lastname']
-			);
-
-				// exit();
-
-			// print_r($param);
-			// exit();
+			); 
 
 			$un_cover = array(
 				"no_handphone" => NULL,
 				"is_active" => true,
 					// "image_path"=> "diisi base64",
 				"accountSosmed" => [],
-				"accountSubscription" => []
+				"accountSubscription" => [],
+				"accountHierarchy" => []
+
 			);
 
-		// digabung karena gak tercover
+			// digabung karena gak tercover
 			$un_cover = (array_merge($param , @$un_cover));
- 
 
-			$url = linkservice('stoksis') ."api/accounts/register/";
+
+			// echo json_encode($un_cover);
+			// exit();
+
+			$url = linkservice('stoksis') ."api/accounts/register_staff/";
 			$method = 'POST';
-			$responseApi = ngeCurl($url, json_encode($un_cover), $method);
+			$responseApi = ngeCurl($url, json_encode($un_cover), $method , $jwt);
 			$res = json_decode($responseApi,true);
-			// print_r($responseApi);
+			// print_r($res);
+			// exit();
 
 			$array = array(
 				'staffbaru' => $responseApi

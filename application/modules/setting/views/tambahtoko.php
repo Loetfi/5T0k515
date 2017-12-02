@@ -41,15 +41,11 @@
           </ol>
         </div>
       </div>
-      <div class="row">
- 
-
+      <div class="row"> 
 
         <div class="col-md-12">
           <div class="card card-wizard" id="wizardCard"> 
-            <div class="content">
-
-
+            <div class="content">  
                 <?php echo form_open_multipart('setting/toko/add'); ?>
                 <div role="content">
                   <ul class="nav nav-pills">
@@ -71,7 +67,7 @@
                   <div class="tab-content">
                     <div role="tabpanel" class="tab-pane active" id="home">
                       <div class="tab-pane active" id="tab1"> 
-                        <!-- <form id="tambahIdentitasToko" action="#" method="" novalidate=""> -->
+
                           <div class="row">
                             <div class="col-md-4 col-sm-4 col-md-offset-4 col-sm-offset-4">
                               <div class="text-center bg-form">
@@ -232,7 +228,7 @@
                     </div>  
 
                     <div role="tabpanel" class="tab-pane" id="buattoko">
-                      <div class="text-center">
+                     <!--  <div class="text-center">
                         <div class="author">
                           <img class="avatar-toko border-gray" src="<?php echo base_url('assets/img/icon/icon-notif_toko.svg');?>" alt="...">
                           <a href="#"> 
@@ -244,8 +240,8 @@
                             </h4>
                           </a>
                         </div>
-                      </div>
-                      <div class="center">
+                      </div> -->
+                     <!--  <div class="center">
                         <fieldset class="scheduler-border">
                           <legend class="scheduler-border">Saluran Penjualan
                           </legend>
@@ -256,7 +252,7 @@
                             <img class="social" src="<?php echo base_url('assets/img/icon/logo-blibli.svg');?>">
                           </div>
                         </fieldset> 
-                      </div>
+                      </div> -->
 
                       <center>
                         <br>

@@ -14,7 +14,7 @@
         </button> 
       </div>
       <div class="collapse navbar-collapse"> 
-        <a href="dashboard.html" class="logoimage">
+        <a href="<?php echo site_url('dashboard') ?>" class="logoimage">
           <img src="<?php echo base_url('assets/img/icon/logo-blue.svg');?>" class="user-image" alt="User Image" style="width: 150px;">
         </a>
         <ul class="nav navbar-nav navbar-right">
@@ -27,13 +27,13 @@
               <img src="<?php echo base_url('assets/img/icon/icon-drop_small.svg');?>" class="icon-drop-small" alt="User Image">
             </a>
             <ul class="dropdown-menu">
-              <li>
+             <!--  <li>
                 <a href="#" class="p-b-0">Hi, Admin 
                   <br> 
                   <p class="color-blue">XYZ Mega Store
                   </p>
                 </a>
-              </li> 
+              </li>  -->
               <li class="divider m-0">
               </li>
               <li>

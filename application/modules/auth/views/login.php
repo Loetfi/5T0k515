@@ -57,6 +57,9 @@
               <div class="col-sm-12 text-right">
                 <button class="btn btn-success btn-fill btn-lg btn-block" type="submit">Masuk
                 </button>
+
+                <a class="btn btn-warning btn-fill btn-lg btn-block" type="submit">Daftar
+                </a>
               </div>
             </div>
           </form>

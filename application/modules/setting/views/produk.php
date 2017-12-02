@@ -1,4 +1,4 @@
-  <!-- <?php print_r($produk);?> -->
+<!-- <?php print_r($produk);?>  -->
 <?php echo $this->session->flashdata('message'); ?>
   <div class="content">
     <div class="container-fluid">
@@ -40,7 +40,8 @@
           </div>
         </div>
         <div class="content table-responsive table-full-width">
-          <table class="table">
+          <!-- <table class="table"> -->
+            <table class="table table-hover " id="example" width="100%" cellspacing="0">
             <thead>
               <th>
               </th> 
@@ -78,8 +79,8 @@
                   <td>SKU XXX-01-FF...</td>
                   <td>Elekronik</td>
                   <td>6</td>
-                  <td>IDR 600.000</td>
-                  <td>IDR 200.000</td>
+                  <td><?php echo $prod['price_buy']; ?></td>
+                  <td><?php echo $prod['price_sale']; ?></td>
                   <td class="td-actions text-right">
                     <a href="<?php echo base_url('setting/produk/view/'.$prod['id']); ?>" class="font-30" rel="tooltip" title="Lihat">
                       <img src="<?php echo base_url('assets/img/icon/icon-viewdetails.svg');?>" class="icon-view" alt="icon">
@@ -92,101 +93,10 @@
                     </a>   
                   </td>
                 </tr>
-                <?php }} ?>
-
-              <!-- 
-              <tr> 
-                <td>
-                  <img src="<?php echo base_url('assets/img/user.jpg');?>"/>
-                </td>
-                <td>Apple iPhone 7 Plus...
-                </td>
-                <td>SKU XXX-01-FF...
-                </td>
-                <td>Elekronik
-                </td>
-                <td>6
-                </td>
-                <td>IDR 600.000
-                </td>
-                <td>IDR 200.000
-                </td>
-                <td class="td-actions text-right">
-                  <a href="#" class="font-30" rel="tooltip" title="Lihat" data-toggle="modal" data-target="#lihatProduk">
-                    <img src="<?php echo base_url('assets/img/icon/icon-viewdetails.svg');?>" class="icon-view" alt="icon">
-                  </a>
-                  <a href="<?php echo site_url('setting/produk/edit') ?>" class="font-30" rel="tooltip" title="Edit">
-                    <img src="<?php echo base_url('assets/img/icon/icon-edit.svg');?>" class="icon-edit" alt="icon">
-                  </a>
-                  <a href="#" class="font-30" rel="tooltip" title="Hapus" data-toggle="modal" data-target="#hapusproduk">
-                    <img src="<?php echo base_url('assets/img/icon/icon-delete.svg');?>" class="icon-delete" alt="icon">
-                  </a>   
-                </td>
-              </tr>
-              <tr> 
-                <td>
-                  <img src="<?php echo base_url('assets/img/user.jpg');?>"/>
-                </td>
-                <td>Apple iPhone 7 Plus...
-                </td>
-                <td>SKU XXX-01-FF...
-                </td>
-                <td>Elekronik
-                </td>
-                <td>6
-                </td>
-                <td>IDR 600.000
-                </td>
-                <td>IDR 200.000
-                </td>
-                <td class="td-actions text-right">
-                  <a href="#" class="font-30" rel="tooltip" title="Lihat" data-toggle="modal" data-target="#lihatProduk">
-                    <img src="<?php echo base_url('assets/img/icon/icon-viewdetails.svg');?>" class="icon-view" alt="icon">
-                  </a>
-                  <a href="editProduk.html" class="font-30" rel="tooltip" title="Edit">
-                    <img src="<?php echo base_url('assets/img/icon/icon-edit.svg');?>" class="icon-edit" alt="icon">
-                  </a>
-                  <a href="#" class="font-30" rel="tooltip" title="Hapus" data-toggle="modal" data-target="#hapusproduk">
-                    <img src="<?php echo base_url('assets/img/icon/icon-delete.svg');?>" class="icon-delete" alt="icon">
-                  </a>   
-                </td>
-              </tr>  -->
+                <?php }} ?> 
             </tbody>
           </table>
-          <div class="row">
-            <div class="col-md-12">
-              <ul class="pagination pull-right">
-                <li>
-                  <a href="#">«
-                  </a>
-                </li>
-                <li class="active">
-                  <a href="#">1
-                  </a>
-                </li>
-                <li>
-                  <a href="#">2
-                  </a>
-                </li>
-                <li>
-                  <a href="#">3
-                  </a>
-                </li>
-                <li>
-                  <a href="#">4
-                  </a>
-                </li>
-                <li>
-                  <a href="#">5
-                  </a>
-                </li>
-                <li>
-                  <a href="#">»
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
+           
         </div>
       </div>
     </div>
@@ -389,3 +299,19 @@
 </div>
 </div>
 </body>
+
+
+
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#example').DataTable({
+              "order": [[ 2, "desc" ]]
+    });
+  } );
+</script>
+
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+
+

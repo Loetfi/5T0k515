@@ -36,6 +36,10 @@ function checkLogin()
 	$ci =& get_instance();
 	$session = @$ci->session->userdata('userdata');
 	if (!isset($session['email'])) {
+
+	
+
+
 		$ci->session->set_flashdata('message', "<script type='text/javascript'> swal('Hai Pengguna', 'Silahkan lakukan login', 'error'); </script>"); 
 			redirect('auth/login','refresh');
 			exit(); 

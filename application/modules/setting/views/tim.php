@@ -38,7 +38,8 @@
           </div>
         </div>
         <div class="content table-responsive table-full-width">
-          <table class="table">
+          <!-- <table class="table">  -->
+            <table class="table table-hover " id="example" width="100%" cellspacing="0">
             <thead>
               <th>
               </th> 
@@ -52,19 +53,28 @@
               </th> 
             </thead>
             <tbody class="text-center">
+              <!-- <?php  print_r($tim); ?>  -->
+              <?php foreach ($tim as $timku) { ?>
               <tr> 
                 <td>
-                  <img src="<?php echo base_url('assets/img/user.jpg');?>"/>
+                  <?php 
+                  //print_r($prod['ProductsImage']);
+                    if (isset($timku['ProductsImage'][0]['path'])) {
+                      echo  '<img src="'.$prod['ProductsImage'][0]['path'].'"/>';
+                    } else {
+                      echo '<img src="'.base_url('assets/img/user.jpg').'"/>';
+                    }
+                    ?>
+                    
                 </td>
-                <td>Zola Zoli
-                </td>
-                <td>18 September 2017
+                <td><?php echo $timku['firstname'] .' '. $timku['lastname']; ?></td>
+                <td><?php echo date('d F Y , H:i:s' , strtotime($timku['date_created'])); ?>
                 </td> 
                 <td>XYZ Mega Store
                 </td>    
                 <td class="td-actions text-right">
                   <!-- edittim.html -->
-                  <a href="<?php echo site_url('setting/tim/edit') ?>" class="font-30" rel="tooltip" title="Edit">
+                  <a href="<?php echo site_url('setting/tim/edit/'.$timku['id']) ?>" class="font-30" rel="tooltip" title="Edit">
                     <img src="<?php echo base_url('assets/img/icon/icon-edit.svg');?>" class="icon-edit" alt="icon">
                   </a>
                   <a href="#" class="font-30" rel="tooltip" title="Hapus" data-toggle="modal" data-target="#hapus">
@@ -72,81 +82,11 @@
                   </a>   
                 </td>
               </tr>
-              <tr> 
-                <td>
-                  <img src="<?php echo base_url('assets/img/user.jpg');?>"/>
-                </td>
-                <td>Zola Zoli
-                </td>
-                <td>18 September 2017
-                </td> 
-                <td>XYZ Mega Store
-                </td>    
-                <td class="td-actions text-right">
-                  <a href="<?php echo site_url('setting/toko/tim') ?>" class="font-30" rel="tooltip" title="Edit">
-                    <img src="<?php echo base_url('assets/img/icon/icon-edit.svg');?>" class="icon-edit" alt="icon">
-                  </a>
-                  <a href="#" class="font-30" rel="tooltip" title="Hapus" data-toggle="modal" data-target="#hapus">
-                    <img src="<?php echo base_url('assets/img/icon/icon-delete.svg');?>" class="icon-delete" alt="icon">
-                  </a>   
-                </td>
-              </tr>
-              <tr> 
-                <td>
-                  <img src="<?php echo base_url('assets/img/user.jpg');?>"/>
-                </td>
-                <td>Zola Zoli
-                </td>
-                <td>18 September 2017
-                </td> 
-                <td>XYZ Mega Store
-                </td>    
-                <td class="td-actions text-right">
-                  <a href="<?php echo site_url('setting/toko/tim') ?>" class="font-30" rel="tooltip" title="Edit">
-                    <img src="<?php echo base_url('assets/img/icon/icon-edit.svg');?>" class="icon-edit" alt="icon">
-                  </a>
-                  <a href="#" class="font-30" rel="tooltip" title="Hapus" data-toggle="modal" data-target="#hapus">
-                    <img src="<?php echo base_url('assets/img/icon/icon-delete.svg');?>" class="icon-delete" alt="icon">
-                  </a>   
-                </td>
-              </tr> 
+              <?php } ?>
+               
             </tbody>
           </table>
-          <div class="row">
-            <div class="col-md-12">
-              <ul class="pagination pull-right">
-                <li>
-                  <a href="#">«
-                  </a>
-                </li>
-                <li class="active">
-                  <a href="#">1
-                  </a>
-                </li>
-                <li>
-                  <a href="#">2
-                  </a>
-                </li>
-                <li>
-                  <a href="#">3
-                  </a>
-                </li>
-                <li>
-                  <a href="#">4
-                  </a>
-                </li>
-                <li>
-                  <a href="#">5
-                  </a>
-                </li>
-                <li>
-                  <a href="#">»
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
+           
       </div>
     </div>
   </div>
@@ -175,3 +115,13 @@
   </div>
 </div>
 </body>
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#example').DataTable({
+              "order": [[ 2, "desc" ]]
+    });
+  } );
+</script>
+

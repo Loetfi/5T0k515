@@ -32,7 +32,7 @@ class Login extends CI_Controller {
  		// end 
 
  		// menghapus session userdata
- 		$this->session->unset_userdata('userdata');
+		$this->session->unset_userdata('userdata');
 
 		if ($this->input->post('email')) { 
 
@@ -41,13 +41,56 @@ class Login extends CI_Controller {
 
 			if ($data['status'] === 200) { 
 
-			$this->session->set_flashdata('message', "<script type='text/javascript'> swal('Good job!', '" . $data['message'] . "', 'success'); </script>");
+				$menu = array(
+					array(
+						'menu' => 'Dashboard' , 
+						'link' => 'dashboard' ),
+					array(
+						'menu' => 'Pengaturan' , 
+						'link' => '#',
+						'detailmenu' =>  [
+							array(
+								'menu' => 'Atur Toko' , 
+								'link' => 'setting/toko'),
+							array(
+								'menu' => 'Atur Tim' , 
+								'link' => 'setting/tim'),
+							array(
+								'menu' => 'Atur Produk' , 
+								'link' => 'setting/produk'),
+							array(
+								'menu' => 'Pengaturan POS' , 
+								'link' => 'setting/pos'),
+							array(
+								'menu' => 'Edit Profile Akun' , 
+								'link' => 'auth/profil/edit'),
+						]
+					),
+					array(
+						'menu' => 'My POS' , 
+						'link' => 'pos' ),
+					array(
+						'menu' => 'Daftar Transaksi' , 
+						'link' => 'transaction' ),
+					array(
+						'menu' => 'Pemberitahuan' , 
+						'link' => 'notif' ), 
+				);
+
+				$sesimenu = array(
+					'menu' => $menu
+				);
+		// insert ke userdata
+				$this->session->set_userdata( $sesimenu );
+				
+
+				$this->session->set_flashdata('message', "<script type='text/javascript'> swal('Good job!', '" . $data['message'] . "', 'success'); </script>");
 				// menambahkan untuk session
 				$array = array(
 					'userdata' => array_merge(@$data['data']['0'] , @$data['data']['1'])
 				);
 				$this->session->set_userdata( $array );
- 
+				
 				redirect('dashboard','refresh');
 				exit();
 			}  else {

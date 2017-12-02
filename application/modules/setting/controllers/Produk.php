@@ -7,6 +7,7 @@ class Produk extends CI_Controller {
 	{
 		parent::__construct();
 		checkLogin();
+		date_default_timezone_set("Asia/Jakarta");
 	}
 
 	public function index()
@@ -205,12 +206,12 @@ class Produk extends CI_Controller {
 				
 				$this->session->set_flashdata('message', "<script type='text/javascript'> swal('Yeay !', '" . $res['message'] . "', 'success'); </script>");
 
-				redirect('setting/toko','refresh');
+				redirect('setting/produk','refresh');
 
 			} else {
 				$this->session->set_flashdata('message', "<script type='text/javascript'> swal('Uuuh !', '" . $res['message'] . "', 'error'); </script>");
 
-				redirect('setting/toko','refresh');
+				redirect('setting/produk','refresh');
 			}   
 			/*
 			$data = array(
