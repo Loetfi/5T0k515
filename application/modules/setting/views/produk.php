@@ -61,7 +61,11 @@
               </th> 
             </thead>
             <tbody class="text-center">
-              <?php if (isset($produk)) {
+              <!-- <?php print_r($produk); ?> -->
+              <?php 
+
+              
+              if (isset($produk)) {
                 foreach ($produk as $prod) { ?>
                 <tr> 
                   <td>
@@ -78,11 +82,11 @@
                   <td><?php echo $prod['product_name']; ?></td>
                   <td>SKU XXX-01-FF...</td>
                   <td>Elekronik</td>
-                  <td>6</td>
+                  <td> </td>
                   <td><?php echo $prod['price_buy']; ?></td>
                   <td><?php echo $prod['price_sale']; ?></td>
                   <td class="td-actions text-right">
-                    <a href="<?php echo base_url('setting/produk/view/'.$prod['id']); ?>" class="font-30" rel="tooltip" title="Lihat">
+                    <a href="<?php echo site_url('setting/produk/view/'.$prod['id']); ?>" class="font-30" rel="tooltip" title="Lihat">
                       <img src="<?php echo base_url('assets/img/icon/icon-viewdetails.svg');?>" class="icon-view" alt="icon">
                     </a>
                     <a href="<?php echo site_url('produk/editproduk/'.$prod['id']) ?>" class="font-30" rel="tooltip" title="Edit">

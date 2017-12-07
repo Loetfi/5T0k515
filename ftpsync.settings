@@ -4,7 +4,7 @@
 
 	"default": {
 
-		//"host": "stok.awanesia.com",
+		"host": "stok.awanesia.com",
 		"username": "admin_stoksis",  // or null for anonymous login
 		"password": "stoksis",
 		"path": "/public_html",

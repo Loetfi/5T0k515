@@ -40,24 +40,24 @@
         <div class="content table-responsive table-full-width">
           <!-- <table class="table">  -->
             <table class="table table-hover " id="example" width="100%" cellspacing="0">
-            <thead>
-              <th>
-              </th> 
-              <th>Nama Tim
-              </th>
-              <th>Tanggal Dibuat
-              </th>
-              <th>Ditugaskan di
-              </th> 
-              <th>
-              </th> 
-            </thead>
-            <tbody class="text-center">
-              <!-- <?php  print_r($tim); ?>  -->
-              <?php foreach ($tim as $timku) { ?>
-              <tr> 
-                <td>
-                  <?php 
+              <thead>
+                <th>
+                </th> 
+                <th>Nama Tim
+                </th>
+                <th>Tanggal Dibuat
+                </th>
+                <th>Ditugaskan di
+                </th> 
+                <th>
+                </th> 
+              </thead>
+              <tbody class="text-center">
+                <!-- <?php  print_r($tim); ?>  -->
+                <?php foreach ($tim as $timku) { ?>
+                <tr> 
+                  <td>
+                    <?php 
                   //print_r($prod['ProductsImage']);
                     if (isset($timku['ProductsImage'][0]['path'])) {
                       echo  '<img src="'.$prod['ProductsImage'][0]['path'].'"/>';
@@ -66,27 +66,34 @@
                     }
                     ?>
                     
-                </td>
-                <td><?php echo $timku['firstname'] .' '. $timku['lastname']; ?></td>
-                <td><?php echo date('d F Y , H:i:s' , strtotime($timku['date_created'])); ?>
-                </td> 
-                <td>XYZ Mega Store
-                </td>    
-                <td class="td-actions text-right">
-                  <!-- edittim.html -->
-                  <a href="<?php echo site_url('setting/tim/edit/'.$timku['id']) ?>" class="font-30" rel="tooltip" title="Edit">
-                    <img src="<?php echo base_url('assets/img/icon/icon-edit.svg');?>" class="icon-edit" alt="icon">
-                  </a>
-                  <a href="#" class="font-30" rel="tooltip" title="Hapus" data-toggle="modal" data-target="#hapus">
-                    <img src="<?php echo base_url('assets/img/icon/icon-delete.svg');?>" class="icon-delete" alt="icon">
-                  </a>   
-                </td>
-              </tr>
-              <?php } ?>
-               
-            </tbody>
-          </table>
-           
+                  </td>
+                  <td><?php echo $timku['firstname'] .' '. $timku['lastname']; ?></td>
+                  <td><?php echo date('d F Y , H:i:s' , strtotime($timku['date_created'])); ?>
+                  </td> 
+                  <td> 
+                    <?php 
+                    foreach ($timku['aksesdetail'] as $akses) {
+                      echo '<img src="'.base_url('assets/img/icon/icon-toko_aktif.svg').'" class="" alt="icon">';
+                      echo '<a href="'.site_url('setting/toko/edit/'.$akses['StoreId']).'">'.$akses['StoreName'].'</a>';
+                      echo "<br>";
+                    } 
+                //print_r($timku['aksesdetail']); ?>
+              </td>    
+              <td class="td-actions text-right">
+                <!-- edittim.html -->
+                <a href="<?php echo site_url('setting/tim/edit/'.$timku['id']) ?>" class="font-30" rel="tooltip" title="Edit">
+                  <img src="<?php echo base_url('assets/img/icon/icon-edit.svg');?>" class="icon-edit" alt="icon">
+                </a>
+                <a href="#" class="font-30" rel="tooltip" title="Hapus" data-toggle="modal" data-target="#hapus">
+                  <img src="<?php echo base_url('assets/img/icon/icon-delete.svg');?>" class="icon-delete" alt="icon">
+                </a>   
+              </td>
+            </tr>
+            <?php } ?>
+
+          </tbody>
+        </table>
+
       </div>
     </div>
   </div>
@@ -120,7 +127,7 @@
 <script type="text/javascript">
   $(document).ready(function() {
     $('#example').DataTable({
-              "order": [[ 2, "desc" ]]
+      "order": [[ 2, "desc" ]]
     });
   } );
 </script>

@@ -10,6 +10,26 @@ class Produk extends CI_Controller {
 		date_default_timezone_set("Asia/Jakarta");
 	}
 
+	public function view($productid)
+	{  
+		$userdata  = $this->session->userdata('userdata');
+		$jwt = $userdata['token'];   
+
+		$url = linkservice('stoksis') ."api/products/".$productid."/";
+		// URL : http://stoksis-api.azurewebsites.net/api/products/{id}/
+		$method = 'GET';
+		$responseApi = ngeCurl($url,'', $method , $jwt);
+		$res = json_decode($responseApi,true);
+
+		$data['produk'] = $res['data']; 
+
+		$data['title'] = 'Atur Produk';
+		$template = 'setting/produkview';
+
+		template($template , $data);		
+	}
+
+
 	public function index()
 	{ 
 
@@ -106,6 +126,7 @@ class Produk extends CI_Controller {
 			$Insert['price_buy'] = @$_POST['hargabeli'];
 			$Insert['price_sale'] = @$_POST['hargajual'];
 			$Insert['price_capital'] = "0"; //@$_POST['SubKategori'];
+			$Insert['id_user_owner'] = @$userdata['id'];
 			$Insert['product_color'] = @$_POST['warna'];
 			$Insert['product_size'] = @$_POST['ukuran'];
 			$Insert['product_capacity'] = @$_POST['kapasitas'];
@@ -126,9 +147,9 @@ class Produk extends CI_Controller {
 			// print_r($_FILES);
 			$config['upload_path'] = './uploads/produk/';
 			$config['allowed_types'] = 'gif|jpg|png';
-			$config['max_size']  = '100';
-			$config['max_width']  = '1024';
-			$config['max_height']  = '768';
+			$config['max_size']  = '100000';
+			$config['max_width']  = '102411';
+			$config['max_height']  = '76811';
 
 			$this->load->library('upload', $config);
 			if ( ! $this->upload->do_upload()){
@@ -200,9 +221,15 @@ class Produk extends CI_Controller {
 			// exit();
 
 			// print_r($res);
+			// exit();
+
+			// print_r($res);
+			// exit();
+
+			// print_r($res);
 			// echo json_encode($parameter);
 			// exit();
-			if ($res['status']==200 or $res == '') {
+			if ($res['status']==201 or $res == '') {
 				
 				$this->session->set_flashdata('message', "<script type='text/javascript'> swal('Yeay !', '" . $res['message'] . "', 'success'); </script>");
 
@@ -249,12 +276,13 @@ class Produk extends CI_Controller {
 			*/
 		}
 
-		// print_r($userdata);
-		$url = linkservice('store').'api/storebyuser?userId='.@$userdata['id'];//linkservice('stoksis') ."api/accounts/login/";
+		// print_r($userdata); 
+		$isowner = ($userdata['is_owner'] == '' or $userdata['is_owner'] == 0 ) ? 0 : $userdata['is_owner'];
+		$url = linkservice('store').'api/storebyuser?userId='.@$userdata['id'].'&IsOwner='.$isowner;//linkservice('stoksis') ."api/accounts/login/";
 		$method = 'GET';
 		$responseApi = ngeCurl($url, '', $method);
 		$res = json_decode($responseApi,true);
-
+ 
 		$data['store'] = $res['data'];
 
 		// print_r($res); 

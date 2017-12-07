@@ -10,6 +10,17 @@ class Tim extends CI_Controller {
 		date_default_timezone_set("Asia/Jakarta");
 	}
 
+	public function getstorebyid($value)
+	{
+		$userdata  = $this->session->userdata('userdata');
+		$jwt = $userdata['token'];   
+		$url = linkservice('store') ."api/storeaccess?userId=".$value;
+		$method = 'GET';
+		$responseApi = ngeCurl($url,'', $method , $jwt);
+		$res = json_decode($responseApi,true);
+
+		return $res['data'];
+	}
 
 	public function index()
 	{ 
@@ -24,10 +35,35 @@ class Tim extends CI_Controller {
 		$responseApi = ngeCurl($url,'', $method , $jwt);
 		$res = json_decode($responseApi,true);
 
+
+		
+
 		// print_r($res);
+		$dd = array();
+		foreach ($res['data'] as $datanya) {
+			$datt['username'] = $datanya['username'];
+			$datt['is_owner'] = $datanya['is_owner'];
+			$datt['image_path'] = $datanya['image_path'];
+			$datt['firstname'] = $datanya['firstname'];
+			$datt['lastname'] = $datanya['lastname'];
+			$datt['email'] = $datanya['email'];
+			$datt['date_created'] = $datanya['date_created'];
+			$datt['id'] = $datanya['staff_id'];
+			$datt['aksesdetail'] = $this->getstorebyid($datanya['staff_id']);
+
+			$dd[] = $datt;
+			// echo $datanya['id'];
+			// print_r($this->getstorebyid($datanya['id']));
+		}
+
+		// print_r($dd);
 		// exit();
 
-		$data['tim'] = $res['data'];
+		
+		// http://stoksis-store-services.azurewebsites.net/api/storeaccess?userId=167
+		// exit();
+
+		$data['tim'] = $dd;
 		################################################
 
 		$data['title'] = 'Atur Tim';
@@ -117,10 +153,24 @@ class Tim extends CI_Controller {
 
 	}
 
-	public function edit()
+	public function edit($id_staff)
 	{
-		$data['title'] = 'Tambah Tim';
+		$data['title'] = 'Tambah Tim'; 
 		$template = 'setting/edittim';
+
+		// http://stoksis-api.azurewebsites.net/api/accounts/my_account/{id_user}
+
+		$userdata  = $this->session->userdata('userdata');
+		$jwt = $userdata['token'];    
+
+		$url = linkservice('stoksis')."api/accounts/my_account/".$id_staff."/";
+		$method = 'GET';
+		$responseApi = ngeCurl($url, '', $method , $jwt);
+		$res = json_decode($responseApi,true);
+
+
+		// print_r($res);
+		$data['staff'] = $res['data'];
 
 		template($template , $data);		
 	}
@@ -157,6 +207,15 @@ class Tim extends CI_Controller {
 		// exit();
 
 		if ($_POST) { 
+
+
+			if (empty($_POST['toko'])) {
+				// echo "belum memilih toko";
+				$this->session->set_flashdata('message', "<script type='text/javascript'> swal('Uuh !', 'Kamu belum memilih toko yang ditugaskan kestaff ini.', 'error'); </script>");
+				// $this->session->unset_userdata('staffbaru');
+				redirect('setting/tim/addassign','refresh');
+			}
+
 
 			$no = 0;
 			foreach ($_POST['toko'] as $toko) {
@@ -195,6 +254,9 @@ class Tim extends CI_Controller {
 			} 
 
 			exit();
+		} else {
+			// echo  "belum memilih";
+			$data['memilih'] = "kamu harus memilih toko dahulu";
 		}
 
 			// echo "<pre>";
@@ -205,8 +267,8 @@ class Tim extends CI_Controller {
 
 
 		// print_r($staff);
-
-			$url = linkservice('store').'api/storebyuser?userId='.@$userdata['id'];//linkservice('stoksis') ."api/accounts/login/";
+		$isowner = ($userdata['is_owner'] == '' or $userdata['is_owner'] == 0 ) ? 0 : $userdata['is_owner'];
+			$url = linkservice('store').'api/storebyuser?userId='.@$userdata['id'].'&IsOwner='.$isowner;//linkservice('stoksis') ."api/accounts/login/";
 			$method = 'GET';
 			$responseApi = ngeCurl($url, '', $method);
 			$res = json_decode($responseApi,true);

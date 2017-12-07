@@ -137,7 +137,7 @@
                   <div class="tab-pane" id="tab3">
                     <div class="row">
                       <div class="col-md-6 col-sm-6">
-                        <div class="card no-shadow">
+                       <!--  <div class="card no-shadow">
                           <div class="header p-0">
                             <div class="author">
                               <img class="avatar-produk border-gray" src="<?php echo base_url('assets/img/iphone.png');?>" style="max-width: 100%;border:0;" alt="...">
@@ -183,10 +183,10 @@
                               </div>
                             </div>
                           </div>
-                        </div>
+                        </div> -->
                       </div>
                       <div class="col-md-6 col-sm-6">
-                        <div class="card no-shadow"> 
+                       <!--  <div class="card no-shadow"> 
                           <div class="content"> 
                             <div class="row">
                               <div class="col-md-12">
@@ -286,10 +286,10 @@
                               </div> 
                             </fieldset>
                           </div>
-                        </div>
+                        </div> -->
                       </div>
-
-                      <button class="btn">Unggah Produk</button>
+ 
+                      <center><button class="btn">Unggah Produk</button></center>
 
                     </div>
                   </div>
@@ -311,7 +311,7 @@
                 </div>
               </div>
 
-<?php $this->load->view('addproduk_getstore'); ?>
+        <?php $this->load->view('addproduk_getstore'); ?>
 
             </form>
 
@@ -325,7 +325,7 @@
 
 
 
-<div class="modal brandmodal fade" id="sukses" tabindex="-1" role="dialog" aria-labelledby="">
+<!-- <div class="modal brandmodal fade" id="sukses" tabindex="-1" role="dialog" aria-labelledby="">
   <div class="modal-dialog" role="document" style="width: 28%;">
     <div class="modal-content">
       <div class="modal-header">
@@ -345,7 +345,7 @@
       </div> 
     </div>
   </div>
-</div>
+</div> -->
 </body>
 
 

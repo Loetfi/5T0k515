@@ -104,6 +104,7 @@
               </th> 
             </thead>
             <tbody class="text-center">
+              <?php foreach ($invoice as $inv) { ?>
               <tr> 
                 <td>
                   <img src="<?php echo base_url('assets/img/user.jpg');?>"/>
@@ -121,43 +122,9 @@
                     </i>
                   </a>  
                 </td>
-              </tr> 
-              <tr> 
-                <td>
-                  <img src="<?php echo base_url('assets/img/user.jpg');?>"/>
-                </td>
-                <td>INV.001.001.XX
-                </td>
-                <td>ZARA - Jaket Kampus/Varsity Merah
-                </td> 
-                <td>
-                  <img class="social" src="<?php echo base_url('assets/img/icon/icon-ig.svg');?>"> Instagram
-                </td>    
-                <td class="td-actions text-right"> 
-                  <a class="btn btn-default btn-simple" href="<?php echo site_url('transaction/detail');?>">
-                    <i class="fa fa-angle-right">
-                    </i>
-                  </a>  
-                </td>
-              </tr> 
-              <tr> 
-                <td>
-                  <img src="<?php echo base_url('assets/img/user.jpg');?>"/>
-                </td>
-                <td>INV.001.001.XX
-                </td>
-                <td>ZARA - Jaket Kampus/Varsity Merah
-                </td> 
-                <td>
-                  <img class="social" src="<?php echo base_url('assets/img/icon/icon-ig.svg');?>"> Instagram
-                </td>    
-                <td class="td-actions text-right"> 
-                  <a class="btn btn-default btn-simple" href="<?php echo site_url('transaction/detail');?>">
-                    <i class="fa fa-angle-right">
-                    </i>
-                  </a>  
-                </td>
-              </tr> 
+              </tr>  
+              <?php } ?>
+
             </tbody>
           </table>
         </div>

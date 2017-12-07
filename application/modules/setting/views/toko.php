@@ -1,5 +1,6 @@
  <?php echo $this->session->flashdata('message'); ?>
-  
+
+<!-- <?php print_r($res); ?> -->
   
  <div class="content">
   <div class="container-fluid">
@@ -65,11 +66,7 @@
 
         <tbody class="text-center">
 
-          <?php foreach ($res['data'] as $r) { 
-      // foreach ($r['StoreAccess'] as $key) {
-      //  print_r($key);
-      // }
-            ?>
+          <?php foreach ($res as $r) { ?>
             <tr> 
               <td>
                 <img src="<?php echo $r['Photo']; ?>">
@@ -78,7 +75,7 @@
               <td><?php echo $r['StoreName']; ?></td>
               <td><?php echo date('d F Y' , strtotime($r['AddDate']));  ?></td>
               <td><?php  echo count($r['StoreAccess']); ?> </td>
-              <td>belum</td>
+              <td><?php  echo $r['CountProduct'][0]['total_product']; ?></td>
               <td>
                 belum
                <!--  <img class="social" src="<?php echo base_url('assets/img/icon/icon-ig.svg');?>"/>

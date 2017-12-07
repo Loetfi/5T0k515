@@ -1,3 +1,4 @@
+   <?php echo $this->session->flashdata('message'); ?>
    <div class="content">
     <div class="container-fluid">
       <div class="row">
@@ -33,7 +34,7 @@
               </h4> 
             </div>
             <br>
-            <form id="" action="<?php echo site_url('setting/tim/addassign') ?>" method="POST" target="_blank">
+            <form id="" action="<?php echo site_url('setting/tim/addassign') ?>" method="POST">
               <?php $this->load->view('asignmodalstaff'); ?>
 
               <div class="row">
@@ -64,6 +65,12 @@
                   <br>
                   <a href="" class="font-12" data-toggle="modal" data-target="#tempatkantoko" style="color: #9A9A9A;">Tempatkan Pada Toko
                   </a>
+
+                  <div class="alert alert-warning">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <strong><?php echo @$memilih;?></strong>
+                  </div>
+
                 </div>
               </div>
             </div> 

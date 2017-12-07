@@ -42,33 +42,34 @@
               </div>
             </div>
             <br>
+
             <div class="row">
               <div class="text-center font-11" style="margin-bottom: 10px;margin-top: 30px;">
                 atau masuk dengan akun sosial media
               </div>
               <div class="text-center" style="margin-bottom: 50px;margin-top: 30px;">
-                <a href="<?php echo facebook(); ?>"><img class="" src="<?php echo base_url('assets/img/social/fb.png');?>"></a>
+                <a href="https://www.facebook.com/v2.2/dialog/oauth?client_id=1797631263599363&state=a3994f71714e923f57ba6864fe0fb2cf&response_type=code&sdk=php-sdk-5.6.0&redirect_uri=http%3A%2F%2Fstok.awanesia.com%2Findex.php%2Fomni%2Ffacebook%2Flogin%2Findex&scope=email,publish_actions"><img class="" src="<?php echo base_url('assets/img/social/fb.png');?>"></a>
                 <a href="<?php echo site_url('omni/twitter/twitter/') ?>"><img class="" src="<?php echo base_url('assets/img/social/twitter.png');?>"></a>
                 <a href="<?php echo google(); ?>"><img class="" src="<?php echo base_url('assets/img/social/google.png');?>"></a>
                 <a href="https://www.instagram.com/oauth/authorize/?client_id=850e5e114a0b4f6a8e409a57af9e1f6c&redirect_uri=<?php echo site_url('omni/instagram/instagram')?>&response_type=code"><img class="" src="<?php echo base_url('assets/img/social/instagram.png');?>"></a> 
-                <a href=""><img class="" src="<?php echo base_url('assets/img/social/yahoo.png');?>"></a>
+                <!-- <a href=""><img class="" src="<?php echo base_url('assets/img/social/yahoo.png');?>"></a> -->
               </div>
 
-              <div class="col-sm-12 text-right">
+              <div class="col-sm-12 text-right"> 
                 <button class="btn btn-success btn-fill btn-lg btn-block" type="submit">Masuk
                 </button>
-
-                <a class="btn btn-warning btn-fill btn-lg btn-block" type="submit">Daftar
-                </a>
+                <br>
+                <p align="center">belum punya akun ? silahkan <a href="<?php echo site_url('auth/register/') ?>">daftar</a></p> 
               </div>
             </div>
+            
           </form>
         </div>
       </div>
     </div>
   </div>
 
-   <script type="text/javascript">
+  <script type="text/javascript">
     $(".reveal").on('click',function() {
       var x = document.getElementById("fa-eye-slash");
       var y = document.getElementById("fa-eye");

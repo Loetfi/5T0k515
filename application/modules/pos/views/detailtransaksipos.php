@@ -1,9 +1,14 @@
+<?php 
+// print_r($detail);
+// print_r($detailproduk);
+ ?>
+
    <div class="content">
    	<div class="container-fluid">
    		<div class="row">
    			<div class="content-header">
    				<h1>
-   					Daftar Transaksi
+   					Detail Transaksi
    					<a href="#" class="btn btn-success btn-fill pull-right">Fitur Premium
    					</a>
    				</h1>
@@ -16,7 +21,7 @@
    						</a>
    					</li>
    					<li> 
-   						INV.001.001.XX 
+   						<?php echo $detail['SalesId']; ?>
    					</li> 
    				</ol>
    			</div>
@@ -25,7 +30,7 @@
    			<div class="header p-0">  
    				<div class="row"> 
    					<div class="col-md-6">
-   						<p class="category font-16 m-t-10 color-black">INV.001.001.XX
+   						<p class="category font-16 m-t-10 color-black">INV <?php echo $detail['SalesId']; ?>
    						</p>
    					</div> 
    				</div>
@@ -35,15 +40,17 @@
    					<tr> 
    						<td width="90" class="vertical-top p-t-10">
    							<div class="cart-product-imitation">
-   								<img class="avatar-produk border-gray" src="<?php echo base_url('assets/img/iphone.png');?>" style="max-width: 100%;border:0;" alt="...">
+   								<img class="avatar-produk border-gray" src="<?php echo @$detailproduk['ProductsImage'][0]['path']; ?>" style="max-width: 100%;border:0;" alt="...">
    							</div>
    						</td>
    						<td class="desc vertical-top">
-   							<small style="font-size: 65%;">Elektronik - Smartphone
-   							</small>
-   							<h4 class="title font-bold font-16">Apple iPhone 7 Plus 128GB Matte Black
+   							<small style="font-size: 65%;">
+                           -
+                           <!-- Elektronik - Smartphone -->
+                        </small>
+   							<h4 class="title font-bold font-16"><?php echo $detailproduk['product_name']; ?>
    							</h4>
-   							<p class="category font-12">SKU XXX-01-FF-RED
+   							<p class="category font-12">SKU <?php echo $detailproduk['id']; ?>
    							</p> 
    						</td>
    						<td class="vertical-top p-t-10">
@@ -52,25 +59,14 @@
    									Deskripsi:
    								</dt> 
    								<dd class="font-12 font-thin color-grey-light">
-   									- 128GB
+   									<?php echo $detailproduk['product_desc']; ?>
    								</dd> 
-   								<dt class="font-12 font-thin" style="width: 80px;">
-
-   								</dt> 
-   								<dd class="font-12 font-thin color-grey-light">
-   									- Warna Matte Black
-   								</dd>
-   								<dt class="font-12 font-thin" style="width: 80px;">
-
-   								</dt> 
-   								<dd class="font-12 font-thin color-grey-light">
-   									- Garansi International 1 Tahun
-   								</dd>      
+   								    
    							</dl>
    						</td>
    						<td class="vertical-top p-t-10 text-right">
    							<p class="font-12 m-t-10 font-bold">
-   								1 x IDR 600.000
+   								<?php echo $qty =  $detail['Quantity']; ?> x IDR <?php echo $hargaaktual = $detail['ActualPrice'];?>
    							</p>
    						</td>
    					</tr>
@@ -81,18 +77,18 @@
    							</p>
    						</td> 
    						<td class="vertical-top p-t-10 text-right">
-   							<p class="font-12 m-t-10 font-bold">IDR 600.000
+   							<p class="font-12 m-t-10 font-bold">IDR <?php echo $subtot = $qty * $hargaaktual; ?>
    							</p>
    						</td>
    					</tr>
    					<tr> 
    						<td colspan="3" width="90" class="vertical-top p-t-10">
    							<p class="color-grey">
-   								PPN 10%
+   								PPN <?php echo $pajak = $detail['TaxPercentage']?>%
    							</p>
    						</td> 
    						<td class="vertical-top p-t-10 text-right">
-   							<p class="font-12 m-t-10 font-bold">IDR 600.000
+   							<p class="font-12 m-t-10 font-bold">IDR <?php echo $hargapajakin = ($subtot * $pajak) / 100 ?>
    							</p>
    						</td>
    					</tr>
@@ -103,7 +99,7 @@
    							</p>
    						</td> 
    						<td class="vertical-top p-t-10 text-right">
-   							<p class="font-16 m-t-10 font-bold">IDR 600.000
+   							<p class="font-16 m-t-10 font-bold">IDR <?php echo $total = $subtot+$hargapajakin; ?>
    							</p>
    						</td>
    					</tr>

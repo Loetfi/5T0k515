@@ -36,7 +36,7 @@
                   <form id="" action="#" method="" novalidate="">
                     <div class="row">
                       <div class="col-md-4 col-md-offset-4">
-                        <div class="text-center bg-form">
+                        <div class="text-center bg-form">  
                           <div class="img-section">
                             <label for="file-upload" class="p-0 custom-file-upload">
                               <img src="<?php echo base_url('assets/img/icon/icon-delete_img.png');?>" id="" alt="Profile picture" 
@@ -57,11 +57,11 @@
                     <div class="row">
                       <div class="col-md-4 col-md-offset-4">
                         <div class="form-group"> 
-                          <input class="form-control" value="zola zoli" type="text" name="namatoko" placeholder="username" required="true">
+                          <input class="form-control" value="<?php echo $staff['username'] ?>" type="text" name="usernam"  placeholder="username" required="true">
                         </div>
                       </div>
                     </div>
-                    <div class="row">
+                   <!--  <div class="row">
                       <div class="col-md-4 col-md-offset-4">
                         <div class="form-group"> 
                           <select class="selectpicker form-control">
@@ -74,18 +74,25 @@
                           </select> 
                         </div>
                       </div>
-                    </div>
+                    </div> -->
                     <div class="row"> 
                       <div class="col-md-4 col-md-offset-4">
                         <div class="form-group">
-                          <input class="form-control" value="zola zoli" type="text" name="namalengkap" required="true" placeholder="Nama Lengkap">
+                          <input class="form-control" value="<?php echo $staff['firstname'] ?>" type="text" name="firstname" required="true" placeholder="Nama Depan ">
+                        </div>
+                      </div> 
+                    </div>
+                      <div class="row"> 
+                      <div class="col-md-4 col-md-offset-4">
+                        <div class="form-group">
+                          <input class="form-control" value="<?php echo $staff['lastname'] ?>" type="text" name="lastname" required="true" placeholder="Nama Belakang ">
                         </div>
                       </div> 
                     </div>
                     <div class="row"> 
                       <div class="col-md-4 col-md-offset-4">
                         <div class="form-group">
-                          <input class="form-control" value="zolazoli@gmail.com" type="text" name="email" required="true" placeholder="Email">
+                          <input class="form-control" value="<?php echo $staff['email'];?>" type="text" name="email" required="true" placeholder="Email">
                         </div>
                       </div> 
                     </div>

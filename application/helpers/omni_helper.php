@@ -22,8 +22,8 @@ function facebook()
 {
 	$ci =& get_instance();
 	require_once  APPPATH.'../omni/facebook/php-sdk-v4/src/Facebook/autoload.php';
-	$appid      = '1989410064664938';
-	$app_secret = 'e6c0c33647eb687c6bde7d65357de537'; 
+	$appid      = '1797631263599363';
+	$app_secret = '4c4f11292235c85549f5d3eb5acadb3f'; 
 	$fb = new Facebook\Facebook([
           'app_id'                => $appid, // Replace {app-id} with your app id
           'app_secret'            => $app_secret,
@@ -34,7 +34,7 @@ function facebook()
 
     $permissions = ['email']; // Optional permissions
   
-    $loginUrl = $helper->getLoginUrl('http://stok.awanesia.com/index.php/omni/facebook/callback/index', $permissions);
+    $loginUrl = $helper->getLoginUrl('http://stok.awanesia.com/index.php/omni/facebook/login/index', $permissions);
 
       // print_r(expression)
     return htmlspecialchars($loginUrl); 

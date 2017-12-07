@@ -46,6 +46,7 @@
       <div class="col-md-12">
         <div class="card card-wizard" id="wizardCard"> 
           <?php echo form_open_multipart('setting/toko/edit/'.$storeid); ?>
+          <input type="hidden" name="StoreInfoId" value="<?php echo $detailtoko['StoreInfo'][0]['StoreInfoId'];?>"> 
           <div class="content">  
             <div role="content">
               <ul class="nav nav-pills">
@@ -269,7 +270,7 @@
                         </div>
                         <button class="btn btn-success btn-fill" >Ubah Toko</button> 
                       </center>
-
+ 
                     </form>
                   </div>
                 </div>

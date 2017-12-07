@@ -5,7 +5,8 @@ class Instagram extends CI_Controller {
 
     public function index()
     {
-        $this->load->library('guzzle');
+        // $this->load->library('Guzzle');
+        require APPPATH.'../guzzle/autoload.php';
         $code  = @$_GET["code"] ? @$_GET["code"] : null;
         $client = new \GuzzleHttp\Client(['verify' => false]);
 
@@ -18,7 +19,7 @@ class Instagram extends CI_Controller {
             'redirect_uri' => 'http://stok.awanesia.com/index.php/omni/instagram/instagram', //isi dengan url project anda
             'code' => $code
         ]
-    ]);
+      ]);
         } catch (ClientException $e) {
             customException([
                 "status" => $this::ERROR_LOGIN_INSTAGRAM,

@@ -142,78 +142,24 @@
                       <div class="table-responsive">
                         <table class="table"> 
                           <tbody>
+                            <!-- <?php print_r($channel); ?>  -->
+                            <?php foreach ($channel as $chan) { ?>
                             <tr> 
                               <td>
-                                <a style="color: #333;" href="#" data-toggle="modal" data-target="#saluranOffline">
-                                  <img class="social" src="<?php echo base_url('assets/img/icon/icon-ig.svg');?>"> Instagram
+                                <a style="color: #333;" href="<?php echo site_url('setting/toko/channel/'.$chan['id']) ?>">
+                                  <img class="social" src="<?php echo $chan['channel_image'];?>"> 
+                                  <?php echo $chan['channel_name']; ?>
                                 </a>
                               </td>   
                               <td class="td-actions text-right"> 
-                                <a class="btn btn-default btn-simple p-0" href="#" data-toggle="modal" data-target="#saluranOffline">
+                                <a class="btn btn-default btn-simple p-0" href="<?php echo site_url('setting/toko/channel/'.$chan['id']) ?>">
                                   <i style="color: #333;" class="pe-7s-angle-right font-30">
                                   </i>
                                 </a> 
                               </td>
                             </tr>
-                            <tr> 
-                              <td>
-                                <img class="social" src="<?php echo base_url('assets/img/icon/icon-fb.svg');?>"> Facebook
-                              </td>   
-                              <td class="td-actions text-right"> 
-                                <a class="btn btn-default btn-simple p-0" href="#">
-                                  <i style="color: #333;" class="pe-7s-angle-right font-30">
-                                  </i>
-                                </a> 
-                              </td>
-                            </tr>
-                            <tr> 
-                              <td>
-                                <img class="social" src="<?php echo base_url('assets/img/icon/icon-twitter.svg');?>"> Twitter
-                              </td>   
-                              <td class="td-actions text-right"> 
-                                <a class="btn btn-default btn-simple p-0" href="#">
-                                  <i style="color: #333;" class="pe-7s-angle-right font-30">
-                                  </i>
-                                </a> 
-                              </td>
-                            </tr>
-                            <tr> 
-                              <td>
-                                <a style="color: #333;" href="#" data-toggle="modal" data-target="#saluranOnline">
-                                  <img class="social" src="<?php echo base_url('assets/img/icon/logo-blibli.svg');?>"> Blibli
-                                </a>
-                              </td>   
-                              <td class="td-actions text-right"> 
-                                <a class="btn btn-default btn-simple p-0" href="#" data-toggle="modal" data-target="#saluranOnline">
-                                  <i style="color: #333;" class="pe-7s-angle-right font-30">
-                                  </i>
-                                </a> 
-                              </td>
-                            </tr>
-                            <tr> 
-                              <td>
-                                <img class="social" src="<?php echo base_url('assets/img/icon/logo-bl.svg');?>"> Bukalapak
-                              </td>   
-                              <td class="td-actions text-right"> 
-                                <a class="btn btn-default btn-simple p-0" href="#">
-                                  <i style="color: #333;" class="pe-7s-angle-right font-30">
-                                  </i>
-                                </a> 
-                              </td>
-                            </tr>
-                            <tr> 
-                              <td>
-                                <a style="color: #333;" href="#" data-toggle="modal" data-target="#Unlink">
-                                  <img class="social" src="<?php echo base_url('assets/img/icon/logo-tokped.svg');?>"> Tokopedia
-                                </a>
-                              </td>   
-                              <td class="td-actions text-right"> 
-                                <a class="btn btn-default btn-simple p-0" href="#" data-toggle="modal" data-target="#Unlink">
-                                  <i style="color: #333;" class="pe-7s-angle-right font-30">
-                                  </i>
-                                </a> 
-                              </td>
-                            </tr> 
+                            <?php } ?>
+                           
                           </tbody>
                         </table>
 
@@ -225,7 +171,7 @@
                           </div>
                         </center>
                       </div>
-                    </div>  
+                    </div>   
 
                     <div role="tabpanel" class="tab-pane" id="buattoko">
                      <!--  <div class="text-center">

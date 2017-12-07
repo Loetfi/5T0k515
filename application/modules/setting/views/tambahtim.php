@@ -33,7 +33,7 @@
             </h4> 
           </div>
           <br>
-          <form id="" action="<?php echo site_url('setting/tim/add') ?>" method="POST" target="_blank">
+          <form id="" action="<?php echo site_url('setting/tim/add') ?>" method="POST">
             <div class="row">
               <div class="col-md-4 col-md-offset-4">
                 <div class="text-center bg-form">

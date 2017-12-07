@@ -54,10 +54,10 @@
                       </p>
                     </a>
                   </li>
-                  <li class="">
+                  <li class="<?php echo ($this->uri->segment(3)=='edit') ? 'active' : '' ?>">
                     <!-- editprofil.html -->
                     <a href="<?php echo site_url('auth/profil/edit'); ?>">
-                      <img src="<?php echo base_url('assets/img/icon/icon-editakun_nonaktif.svg');?>" class="" alt="icon">
+                      <img src="<?php echo ($this->uri->segment(3)=='edit') ? base_url('assets/img/icon/icon-editakun_aktif.svg') : base_url('assets/img/icon/icon-editakun_nonaktif.svg') ?>" class="" alt="icon">
                       <p>Edit Profile Akun
                       </p>
                     </a>
@@ -65,17 +65,17 @@
                 </ul>
               </div>
             </li> 
-            <li>
+            <li class="<?php echo ($this->uri->segment(1)=='pos') ? 'active' : '' ?>">
               <a href="<?php echo site_url('pos');?>">
-                <img src="<?php echo base_url('assets/img/icon/icon-pos_nonaktif.svg');?>" class="" alt="icon">
+                <img src="<?php echo ($this->uri->segment(1)=='pos') ? base_url('assets/img/icon/icon-pos_aktif.svg') : base_url('assets/img/icon/icon-pos_nonaktif.svg') ?>" class="" alt="icon">
                 <p>My POS
                 </p>
               </a>
             </li>
-            <li class="">
+            <li class="<?php echo ($this->uri->segment(1)=='transaction') ? 'active' : '' ?>"> 
               <!-- DaftarTransaksi.html -->
               <a href="<?php echo site_url('transaction') ?>">
-                <img src="<?php echo base_url('assets/img/icon/icon-historitransaksi_nonaktif.svg');?>" class="" alt="icon">
+                <img src="<?php echo ($this->uri->segment(1)=='transaction') ? base_url('assets/img/icon/icon-historitransaksi-aktif.svg') : base_url('assets/img/icon/icon-historitransaksi_nonaktif.svg') ?>" class="" alt="icon">
                 <p>Daftar Transaksi
                 </p>
               </a>

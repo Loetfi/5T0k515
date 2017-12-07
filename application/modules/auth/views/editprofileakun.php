@@ -28,7 +28,7 @@
                 </h4> 
               </div>
               <br>
-              <form id="" action="#" method="" novalidate="">
+              <form id="" action="<?php echo site_url('auth/profil/editakun') ?>" method="POST" novalidate="">
                 <div class="row">
                   <div class="col-md-4 col-md-offset-4">
                     <div class="text-center bg-form">
@@ -49,33 +49,33 @@
                 <div class="row">
                   <div class="col-md-2 col-md-offset-4">
                     <div class="form-group"> 
-                      <input class="form-control" type="text" value="" name="" placeholder="Nama Depan" required="true">
+                      <input class="form-control" type="text" name="firstname" placeholder="Nama Depan" required="true" value="<?php echo @$profil['firstname'] ?>">
                     </div>
                   </div>
                   <div class="col-md-2">
                     <div class="form-group"> 
-                      <input class="form-control" type="text" value="" name="" placeholder="Nama Belakang" required="true">
+                      <input class="form-control" type="text" name="lastname" placeholder="Nama Belakang" required="true" value="<?php echo $profil['lastname'] ?>">
                     </div>
                   </div>
                 </div> 
                 <div class="row"> 
                   <div class="col-md-4 col-md-offset-4">
                     <div class="form-group">
-                      <input class="form-control" type="text" value="" name="" required="true" placeholder="Nomor Telepon">
+                      <input class="form-control" type="text" name="no_handphone" required="true" placeholder="Nomor Telepon" value="<?php echo $profil['no_handphone'] ?>">
                     </div>
                   </div> 
                 </div>
                 <div class="row"> 
                   <div class="col-md-4 col-md-offset-4">
                     <div class="form-group">
-                      <input class="form-control" type="text" value="" name="" required="true" placeholder="Email">
+                      <input class="form-control" type="text" value="<?php echo $profil['email'] ?>" name="email" required="true" placeholder="Email">
                     </div>
                   </div> 
                 </div> 
                 <div class="row"> 
                   <div class="col-md-4 col-md-offset-4">
                    <div class="input-group" style="width:100%;">
-                    <input type="password" placeholder="Kata Sandi" class="form-control pwd" value="" required>
+                    <input type="password" placeholder="Kata Sandi" class="form-control pwd" value="" name="password">
                     <span class="input-group-btn" style="border-bottom: 1px solid  #a0a9b4"> 
                       <a href="#" class="icon-pass reveal pass" style="left: 5px;background-color: transparent;">
                         <img src="<?php echo base_url('assets/img/icon/icon-hide_passwd.svg');?>" style="width: 20px !important;" id="fa-eye" alt="User Image">
@@ -88,7 +88,7 @@
               <div class="row"> 
                 <div class="col-md-4 col-md-offset-4">
                   <div class="input-group" style="width:100%;">
-                    <input type="password" placeholder="Ulangi Kata Sandi" class="form-control pwd2" value="" required>
+                    <input type="password" placeholder="Ulangi Kata Sandi" class="form-control pwd2" value="" name="confirm_password">
                     <span class="input-group-btn" style="border-bottom: 1px solid  #a0a9b4"> 
                       <a href="#" class="icon-pass reveal2 pass" style="left: 5px;background-color: transparent;">
                         <img src="<?php echo base_url('assets/img/icon/icon-hide_passwd.svg');?>" style="width: 20px !important;" id="fa-eye2" alt="User Image">
@@ -102,7 +102,8 @@
               <div class="row">
                 <div class="col-md-4 col-md-offset-4">
                   <div class="footer">
-                    <a href="#" class="btn btn-success btn-fill btn-wd btn-next btn-block" data-toggle="modal" data-target="#sukses" data-dismiss="modal">Simpan</a>  
+                    <button class="btn btn-success btn-fill btn-wd btn-next btn-block">Simpan</button>
+                    <!-- <a href="#" class="btn btn-success btn-fill btn-wd btn-next btn-block" >Simpan</a>   -->
                     <div class="clearfix">
                     </div>
                   </div>

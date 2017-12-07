@@ -67,7 +67,27 @@
               </div>
             </div>
           </div>
+
           <div class="row">
+              <div class="text-center font-11" style="margin-bottom: 10px;margin-top: 30px;">
+                atau masuk dengan akun sosial media
+              </div>
+              <div class="text-center" style="margin-bottom: 50px;margin-top: 30px;">
+                <a href="<?php echo facebook(); ?>"><img class="" src="<?php echo base_url('assets/img/social/fb.png');?>"></a>
+                <a href="<?php echo site_url('omni/twitter/twitter/') ?>"><img class="" src="<?php echo base_url('assets/img/social/twitter.png');?>"></a>
+                <a href="<?php echo google(); ?>"><img class="" src="<?php echo base_url('assets/img/social/google.png');?>"></a>
+                <a href="https://www.instagram.com/oauth/authorize/?client_id=850e5e114a0b4f6a8e409a57af9e1f6c&redirect_uri=<?php echo site_url('omni/instagram/instagram')?>&response_type=code"><img class="" src="<?php echo base_url('assets/img/social/instagram.png');?>"></a> 
+                <!-- <a href=""><img class="" src="<?php echo base_url('assets/img/social/yahoo.png');?>"></a> -->
+              </div>
+
+              <div class="col-sm-12 text-right"> 
+                <button class="btn btn-danger btn-fill btn-lg btn-block" type="submit" onclick="onFinishWizard()">Buat Akun</button>
+                <br>
+                <p align="center">sudah punya akun ? silahkan <a href="<?php echo site_url('auth/login/') ?>">login</a></p>
+              </div>
+            </div>
+
+          <!-- <div class="row">
             <div class="text-center font-11" style="margin-bottom: 10px; margin-top: 30px;">
               atau daftar dengan akun sosial media
             </div>
@@ -80,10 +100,11 @@
             </div>
 
             <div class="col-sm-12 text-right">
-              <button class="btn btn-danger btn-fill btn-lg btn-block" type="submit" onclick="onFinishWizard()">Buat Akun
-              </button>
+              
+              <br>
+              <p align="center">sudah punya akun ? silahkan <a href="<?php echo site_url('auth/login/') ?>">login</a></p>
             </div>
-          </div>
+          </div> -->
         </form>
       </div>
     </div>

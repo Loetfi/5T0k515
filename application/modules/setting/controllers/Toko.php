@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Toko extends CI_Controller {
-
+	
 	public function __construct()
 	{
 		parent::__construct();
@@ -17,29 +17,72 @@ class Toko extends CI_Controller {
 		template($template , $data);	
 	}
 
+	public function channel($channelid)
+	{
+		if ($channelid == 2) {
+			$template = 'setting/facebook';
+		}
+		$data['title'] = 'Atur Toko';
+		template($template , $data);	
+	}
+
+
+	public function getCountStore($storeid='')
+	{
+		// http://stoksis-api.azurewebsites.net/api/products/total_products/?store_id=c94d252c-77fc-43a8-a667-bbb3166ddce0
+		$userdata  = $this->session->userdata('userdata');
+		$jwt = $userdata['token'];   
+
+		$url = linkservice('stoksis') ."api/products/total_products/?store_id=".$storeid;
+		$method = 'GET';
+		$responseApi = ngeCurl($url,'', $method , $jwt);
+		$res = json_decode($responseApi,true);
+
+		return $res['data'];
+
+	}
 
 	public function index()
 	{
 
-		// $path = 'http://localhost:8888/Projekan/stok/assets/img/user.jpg';
-		// $type = pathinfo($path, PATHINFO_EXTENSION);
-		// $data = file_get_contents($path);
-		// $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
-
-		// echo $base64 =  base64_encode($base64);
-		// echo '<img src="https://stoksisdev.blob.core.windows.net/store/ce174692-fb12-4ff2-a16a-42f0caa93f71">'; 
-		// exit(); 
 		$sesi = $this->session->userdata('userdata');
+		$jwt = $sesi['token'];
 		// print_r( $this->session->all_userdata() );
 		// exit();
 		@$parameter;
-		$url = linkservice('store').'api/storebyuser?userId='.@$sesi['id'];//linkservice('stoksis') ."api/accounts/login/";
+		$isowner = ($sesi['is_owner'] == '' or $sesi['is_owner'] == 0 ) ? 0 : $sesi['is_owner'];
+		$url = linkservice('store').'api/storebyuser?userId='.@$sesi['id'].'&IsOwner='.$isowner;//linkservice('stoksis') ."api/accounts/login/";
 		$method = 'GET';
-		$responseApi = ngeCurl($url, '', $method);
+		$responseApi = ngeCurl($url, '', $method,$jwt);
 		$res = json_decode($responseApi,true); 
 		// 	"######################################################################";
+		$prod = array();
+		
+		foreach ($res['data'] as $produk) {
 
-		$data['res'] 		= $res;
+			$ss = array(
+				"StoreId" => $produk['StoreId'],
+				"StoreName" => $produk['StoreName'],
+				"StoreAddress" => $produk['StoreAddress'],
+				"Latitude" => $produk['Latitude'],
+				"Longitude" => $produk['Longitude'],
+				"Photo" => $produk['Photo'],
+				"AddBy" => $produk['AddBy'],
+				"AddDate" => $produk['AddDate'],
+				"ModBy" => $produk['ModBy'],
+				"ModDate" => $produk['ModDate'],
+				"Deleted" => $produk['Deleted'],
+				"StoreAccess" => $produk['StoreAccess'],
+				"StoreInfo" => $produk['StoreInfo'],
+				"CountProduct" => $this->getCountStore($produk['StoreId'])
+			);
+			$prod[] = $ss;
+		}
+		// print_r($prod);
+		$data['res'] = $prod;
+		// exit();
+
+		
 
 		$data['title'] 		= 'Atur Toko';
 		$template = 'setting/toko';
@@ -67,7 +110,7 @@ class Toko extends CI_Controller {
 			$res = json_decode($responseApi,true);
 
 			if ($res['status']==200) {
-				
+
 				$this->session->set_flashdata('message', "<script type='text/javascript'> swal('Yeay !', '" . $res['message'] . "', 'success'); </script>");
 
 				redirect('setting/toko','refresh');
@@ -88,6 +131,9 @@ class Toko extends CI_Controller {
 	public function add()
 	{ 	 
 
+		$sesi = $this->session->userdata('userdata');
+		$jwt = $sesi['token'];
+
 		$config['upload_path'] = './uploads/';
 		$config['allowed_types'] = 'gif|jpg|png';
 		$config['max_size']  = '100000';
@@ -98,7 +144,7 @@ class Toko extends CI_Controller {
 
 		if ( ! $this->upload->do_upload()){
 
-			
+
 
 			if (@$_POST['namatoko'] and @$_POST['alamat']) {
 
@@ -197,7 +243,7 @@ class Toko extends CI_Controller {
 
 
 			if ($res['status']==200 or $res == '') {
-				
+
 				$this->session->set_flashdata('message', "<script type='text/javascript'> swal('Yeay !', '" . $res['message'] . "', 'success'); </script>");
 
 				redirect('setting/toko','refresh');
@@ -208,6 +254,17 @@ class Toko extends CI_Controller {
 				redirect('setting/toko','refresh');
 			}
 		} 
+
+		### get channel 
+
+		$url = linkservice('stoksis').'api/accounts/channels/';
+		//linkservice('stoksis') ."api/accounts/login/";
+		$method = 'GET';
+		$responseApi = ngeCurl($url, '', $method , $jwt);
+		$res = json_decode($responseApi,true); 
+		$data['channel'] = $res['data']; 
+		### end get channel
+
 
 		$data['title'] = 'Tambah Toko';
 		$template = 'setting/tambahtoko'; 
@@ -260,6 +317,7 @@ class Toko extends CI_Controller {
 
 		$this->load->library('upload', $config);
 
+		$StoreInfoId = @$_POST['StoreInfoId'];
 
 		if ( ! $this->upload->do_upload()){
 
@@ -273,22 +331,24 @@ class Toko extends CI_Controller {
 				$long = @$_POST['long'];
 				###########
 				$userdata  = $this->session->userdata('userdata');
-				$jwt = $userdata['token']; 
+				$jwt = $userdata['token'];  
 				$parameter = array(
 					'StoreId' => "$storeId",
 					'StoreName' => "$namatoko",
 					'StoreAddress' => "$alamat",
 					'Latitude' => "$lat",
 					'Longitude' => "$long",
-					'Photo' => "",
+					// 'Photo' => "",
 					'ModBy' => "$userdata[id]",
 					'ModDate' => date('Y-m-d H:i:s'),
-					'StoreInfoAdd' => [array(
-						"StoreInfoType" => "string",
-						"StoreInfoSocialId" => "string",
+					'StoreInfoUpdate' => [array(
+						"StoreInfoId" => "$StoreInfoId", 
+						"StoreId" => "$storeId",
+						"StoreInfoType" => "string", //channel id 
+						"StoreInfoSocialId" => "string", // id social 
 						"Email" => "$userdata[email]",
-						"AddBy" => "$userdata[id]",
-						'AddDate' => date('Y-m-d H:i:s'),
+						"ModBy" => "$userdata[id]",
+						'ModDate' => date('Y-m-d H:i:s'),
 					)]
 				);
 
@@ -303,13 +363,15 @@ class Toko extends CI_Controller {
 
 					$this->session->set_flashdata('message', "<script type='text/javascript'> swal('Yeay !', '" . $res['message'] . "', 'success'); </script>");
 
-					redirect('setting/toko','refresh');
+					// redirect('setting/toko','refresh');
 
 				} else {
-					$this->session->set_flashdata('message', "<script type='text/javascript'> swal('Uuuh !', '" . $res['message'] . "', 'error'); </script>");
+					$this->session->set_flashdata('message', "<script type='text/javascript'> swal('Uuuh !', 'Harus ubah dengan foto.', 'error'); </script>");
 
 					redirect('setting/toko','refresh');
 				}
+				// print_r($res);
+
 			} else {
 				echo "<font style='font-size:0.001em'>&nbsp;</font>";
 
@@ -335,17 +397,19 @@ class Toko extends CI_Controller {
 			$long = @$_POST['long'];
 			###########
 			$userdata  = $this->session->userdata('userdata');
-		echo 	$jwt = $userdata['token']; 
+			$jwt = $userdata['token']; 
 			$parameter = array(
 				'StoreId' => "$storeId",
 				'StoreName' => "$namatoko",
 				'StoreAddress' => "$alamat",
 				'Latitude' => "$lat",
 				'Longitude' => "$long",
-				'Photo' => "",
+				'Photo' => "$base64",
 				'ModBy' => "$userdata[id]",
 				'ModDate' => date('Y-m-d H:i:s'),
-				'StoreInfoAdd' => [array(
+				'StoreInfoUpdate' => [array(
+					"StoreInfoId" => "$StoreInfoId", 
+					"StoreId" => "$storeId",
 					"StoreInfoType" => "string",
 					"StoreInfoSocialId" => "string",
 					"Email" => "$userdata[email]",
@@ -354,19 +418,23 @@ class Toko extends CI_Controller {
 				)]
 			);
 
+			// echo json_encode($parameter);
+			// exit();
+
 			// exit();
 			$url = linkservice('store') ."api/store/";
 			$method = 'PUT';
 			$responseApi = ngeCurl($url, json_encode($parameter), $method , $jwt);
 			$res = json_decode($responseApi,true);
 
-			echo json_encode($parameter); 
-			exit();
+			// echo json_encode($parameter); 
+			// exit();
 			if ($res['status']==200 or $res == '') {
 				
 				$this->session->set_flashdata('message', "<script type='text/javascript'> swal('Yeay !', '" . $res['message'] . "', 'success'); </script>");
 
-				redirect('setting/toko','refresh');
+				redirect('setting/toko','refresh'); 
+				// echo "berhasil";
 
 			} else {
 				$this->session->set_flashdata('message', "<script type='text/javascript'> swal('Uuuh !', '" . $res['message'] . "', 'error'); </script>");
@@ -380,12 +448,14 @@ class Toko extends CI_Controller {
 		$jwt = $userdata['token']; 
 		$url = linkservice('store') ."api/storebyid?storeId=".$storeId;
 		$method = 'GET';
-		$responseApi = ngeCurl($url, '', $method , $jwt);
+		$responseApi = ngeCurl($url, '', $method , $jwt); 
 		$res = json_decode($responseApi,true);
 		$data['detailtoko'] = $res['data'][0];
 
-		echo $data['storeid'] = @$storeId;
-		// exit();
+		// print_r($data['detailtoko']);
+
+		$data['storeid'] = @$storeId;
+		// exit(); 
 
 		$data['title'] = 'Atur Toko';
 		$template = 'setting/edittoko';

@@ -6,35 +6,38 @@ require_once  APPPATH.'../omni/facebook/php-sdk-v4/src/Facebook/autoload.php';
 
 Class Callback extends CI_Controller
 {
-	var $appid      = '1989410064664938';
-	var $app_secret = 'e6c0c33647eb687c6bde7d65357de537'; 
+	var $appid      = '1797631263599363';
+	var $app_secret = '4c4f11292235c85549f5d3eb5acadb3f'; 
 
 	public function index()
 	{ 
 		// session_start();
+		$_SESSION['FBRLH_state'] = @$_REQUEST['state']; 
 
-		$fb = new Facebook\Facebook([ 
+        $fb = new Facebook\Facebook([ 
           'app_id' => $this->appid, // Replace {app-id} with your app id
           'app_secret' => $this->app_secret,
           'default_graph_version' => 'v2.2', 
           ]);
 
-		$helper = $fb->getRedirectLoginHelper();
+        $helper = $fb->getRedirectLoginHelper();
 
         // Trick below will avoid "Cross-site request forgery validation failed. Required param "state" missing." from Facebook
-		$_SESSION['FBRLH_state'] = @$_REQUEST['state']; 
 
         print_r($this->session->all_userdata());
 
 		try {
+            echo "1";
 			$accessToken = $helper->getAccessToken();
 		} catch(Facebook\Exceptions\FacebookResponseException $e) {
               // When Graph returns an error
-			$pesan = 'Graph returned an error: ' . $e->getMessage();
+			echo $pesan = 'Graph returned an error: ' . $e->getMessage();
+            echo "2";
 			exit;
 		} catch(Facebook\Exceptions\FacebookSDKException $e) {
               // When validation fails or other local issues
 			$pesan = 'Facebook SDK returned an error: ' . $e->getMessage();
+            echo "3";
 			exit;
 		}
 

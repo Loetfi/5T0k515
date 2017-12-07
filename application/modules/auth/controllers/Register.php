@@ -22,6 +22,9 @@ class Register extends CI_Controller {
 			$res = $this->proses(json_encode($this->input->post()));
 			$data = json_decode($res, TRUE);
 
+			// print_r($data);
+			// exit();
+
 			if ($data['status'] === 201) { 
 
 				$this->session->set_flashdata('message', "<script type='text/javascript'> swal('Good job!', '" . $data['message'] . "', 'success'); </script>"); 
@@ -50,7 +53,8 @@ class Register extends CI_Controller {
 			"is_owner" => true,
 			"image_path"=> "diisi base64",
 			"accountSosmed" => [],
-			"accountSubscription" => []
+			"accountSubscription" => [],
+			"accountHierarchy" => []
 		);
 
 		// digabung karena gak tercover

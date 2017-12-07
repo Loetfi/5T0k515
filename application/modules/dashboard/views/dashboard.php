@@ -1,10 +1,10 @@
-  <div class="content">
-    <div class="container-fluid">
+<div class="content">
+  <div class="container-fluid">
 
-      <?php echo $this->session->flashdata('message'); ?>
+    <?php echo $this->session->flashdata('message'); ?>
       <!-- 
         <?php print_r($this->session->all_userdata()); ?>
-       -->
+      -->
       <div class="row">
         <div class="content-header">
           <h1>
@@ -43,8 +43,8 @@
               <img src="<?php echo base_url('assets/img/icon/icon-tim.svg');?>" class="" alt="icon">
             </div>
             <div class="value color-green">
-              <h1 class=" count2">12
-              </h1>
+              <h1 class="count2"><?php echo @$timcount; ?>
+              </h1> 
               <p>Staff
               </p>
             </div>
@@ -56,8 +56,8 @@
               <img src="<?php echo base_url('assets/img/icon/icon-box_produk.svg');?>" class="" alt="icon">
             </div>
             <div class="value color-red">
-              <h1 class=" count3">245
-              </h1>
+              <h1 class="count3"><?php echo @$produkcount; ?>
+              </h1>  
               <p>Produk
               </p>
             </div>

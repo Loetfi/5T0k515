@@ -48,26 +48,26 @@
                       <div class="row">
                         <div class="col-md-2 col-md-offset-4">
                           <div class="form-group"> 
-                            <input class="form-control" type="text" value="Budi" name="" placeholder="Nama Depan" disabled>
+                            <input class="form-control" type="text" value="<?php echo @$profil['firstname']; ?>" name="" placeholder="Nama Depan" disabled>
                           </div>
                         </div>
                         <div class="col-md-2">
                           <div class="form-group"> 
-                            <input class="form-control" type="text" value="Sudarsono" name="" placeholder="Nama Belakang" disabled>
+                            <input class="form-control" type="text" value="<?php echo @$profil['lastname']; ?>" name="" placeholder="Nama Belakang" disabled>
                           </div>
                         </div>
                       </div> 
                       <div class="row"> 
                         <div class="col-md-4 col-md-offset-4">
                           <div class="form-group">
-                            <input class="form-control" type="text" value="+62812345678" name="" disabled placeholder="Nama Lengkap">
+                            <input class="form-control" type="text" value="<?php echo @$profil['no_handphone']; ?>" name="" disabled placeholder="Nama Lengkap">
                           </div>
                         </div> 
                       </div>
                       <div class="row"> 
                         <div class="col-md-4 col-md-offset-4">
                           <div class="form-group">
-                            <input class="form-control" type="text" value="email.nama@email.com" name="" disabled placeholder="Email">
+                            <input class="form-control" type="text" value="<?php echo @$profil['email']; ?>" name="" disabled placeholder="Email">
                           </div>
                         </div> 
                       </div> 
