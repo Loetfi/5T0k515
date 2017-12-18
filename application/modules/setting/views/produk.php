@@ -89,7 +89,7 @@
                     <a href="<?php echo site_url('setting/produk/view/'.$prod['id']); ?>" class="font-30" rel="tooltip" title="Lihat">
                       <img src="<?php echo base_url('assets/img/icon/icon-viewdetails.svg');?>" class="icon-view" alt="icon">
                     </a>
-                    <a href="<?php echo site_url('produk/editproduk/'.$prod['id']) ?>" class="font-30" rel="tooltip" title="Edit">
+                    <a href="<?php echo site_url('setting/produk/edit/'.$prod['id']) ?>" class="font-30" rel="tooltip" title="Edit">
                       <img src="<?php echo base_url('assets/img/icon/icon-edit.svg');?>" class="icon-edit" alt="icon">
                     </a>
                     <a href="#" class="font-30" rel="tooltip" title="Hapus" data-toggle="modal" data-target="#hapusproduk">

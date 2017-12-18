@@ -141,12 +141,11 @@
                       </h5> 
                       <div class="table-responsive">
                         <table class="table"> 
-                          <tbody>
-                            <!-- <?php print_r($channel); ?>  -->
+                          <tbody> 
                             <?php foreach ($channel as $chan) { ?>
                             <tr> 
                               <td>
-                                <a style="color: #333;" href="<?php echo site_url('setting/toko/channel/'.$chan['id']) ?>">
+                                <a style="color: #333;" href="<?php echo "#"; //echo site_url('setting/toko/channel/'.$chan['id']) ?>">
                                   <img class="social" src="<?php echo $chan['channel_image'];?>"> 
                                   <?php echo $chan['channel_name']; ?>
                                 </a>

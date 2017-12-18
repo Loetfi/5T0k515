@@ -1,5 +1,52 @@
 <?php 
 
+
+function getNameSubCat($subcatid='')
+{
+	// 3d7e28ea-f30e-4f61-a6f8-af2002855e56
+	// /api/subcategorybysubcategoryid
+	$ci =& get_instance();
+	$userdata  = $ci->session->userdata('userdata');
+	$jwt = $userdata['token'];   
+	$url = linkservice('CATEGORY') ."api/subcategorybysubcategoryid?SubCategoryId=".$subcatid; 
+	$method = 'GET';
+	$responseApi = ngeCurl($url,'', $method , $jwt);
+	$res = json_decode($responseApi,true); 
+	$respon = $res['data'][0]; 
+
+	return $respon['SubCategoryName'];
+}
+
+function getassigntoko_by_session($value='') 
+{
+		// print_r($this->session->userdata('assigntoko'));
+	$ci =& get_instance();
+	$assigntoko = $ci->session->userdata('assigntoko');
+		// fread(handle, length)
+	foreach ($assigntoko as $at) {
+		$gabungin[] = $at['StoreId'];
+	} 
+		// implode(glue, pieces)
+		// explode(delimiter, string)
+		// $aku[] = 1;
+		// $aku[] = 2;
+
+		// $StoreyangdiAssign = implode(',', $aku);
+		//['2c009ede-c3ab-414e-887f-0f3d576a18c4' , '2c009ede-c3ab-414e-887f-0f3d576a18c3'];
+
+		// print_r($StoreyangdiAssign);
+		// exit();	
+
+	foreach ($gabungin as $sa) {
+		if ($sa == $value) {
+				// echo "ada";
+			return true;
+		}
+	}
+
+	return false; 
+}
+
 function isLogin()
 {
 	$ci =& get_instance();
@@ -37,12 +84,12 @@ function checkLogin()
 	$session = @$ci->session->userdata('userdata');
 	if (!isset($session['email'])) {
 
-	
+
 
 
 		$ci->session->set_flashdata('message', "<script type='text/javascript'> swal('Hai Pengguna', 'Silahkan lakukan login', 'error'); </script>"); 
-			redirect('auth/login','refresh');
-			exit(); 
+		redirect('auth/login','refresh');
+		exit(); 
 	}  
 }
 

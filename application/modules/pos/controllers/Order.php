@@ -131,7 +131,7 @@ class Order extends CI_Controller {
 		);
 		$this->session->set_userdata( $array ); 
 
-		if (empty($_GET['store'])) {
+		if (empty($_GET['store']) or @$_GET['store'] == "") {
 			$this->session->set_flashdata('message', "<script type='text/javascript'> swal('Uuuh !', 'Kamu belum memilih toko', 'error'); </script>");
 			redirect('pos/','refresh');
 			exit();
@@ -154,7 +154,6 @@ class Order extends CI_Controller {
 		$method = 'GET';
 		$responseApi = ngeCurl($url,'', $method , $jwt);
 		$res = json_decode($responseApi,true);
- 
 
 		$array = array(
 			'sale' => array(
@@ -260,7 +259,7 @@ class Order extends CI_Controller {
 				"InvoiceDate" => date('Y-m-d H:i:s'),
 				"TaxPercentage" => $data['pajak'],//$_POST['pajak'],
 				"TaxAmmount" => (int) $_POST['hargapajak'],
-				"TaxAfterTax" => (int) str_replace(',', '', $_POST['total']),
+				"TotalAfterTax" => (int) str_replace(',', '', $_POST['total']),
 				"TotalPaid" => (int) $_POST['uangtunai'],
 				"CustomerEmail" => $_POST['alamatemail'],
 				"AddBy"	=> "$userdata[id]",
@@ -268,7 +267,9 @@ class Order extends CI_Controller {
 				"Sales" => $beli
 			);
 
+
 			// echo json_encode($OrderDeal);
+			// exit();
 			$jwt = $userdata['token'];   
 			// exit();
 

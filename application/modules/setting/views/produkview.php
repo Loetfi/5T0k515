@@ -119,7 +119,7 @@
                                   </h5>
                                 </div>
                                 <div class="col-md-6 no-pl">
-                                  <h2>2
+                                  <h2> 
                                   </h2>
                                 </div>
                               </div>
@@ -130,7 +130,7 @@
                     </div> 
                   </div>
                   <br>
-                  <fieldset class="scheduler-border" style="min-height:260px;max-height: 260px;overflow: auto;">
+                  <!-- <fieldset class="scheduler-border" style="min-height:260px;max-height: 260px;overflow: auto;">
                     <legend class="scheduler-border color-grey-light">Saluran penjualan yang tersedia
                     </legend>
  
@@ -187,7 +187,7 @@
                  </div>
                </div> 
 
-             </fieldset>
+             </fieldset> -->
            </div>
          </div>
        </div>

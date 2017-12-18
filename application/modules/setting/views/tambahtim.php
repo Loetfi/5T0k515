@@ -1,3 +1,4 @@
+ <?php echo $this->session->flashdata('message'); ?>
  <div class="content">
   <div class="container-fluid">
     <div class="row">
@@ -33,7 +34,8 @@
             </h4> 
           </div>
           <br>
-          <form id="" action="<?php echo site_url('setting/tim/add') ?>" method="POST">
+
+            <?php echo form_open_multipart('setting/tim/add'); ?>
             <div class="row">
               <div class="col-md-4 col-md-offset-4">
                 <div class="text-center bg-form">

@@ -185,7 +185,7 @@ class Produk extends CI_Controller {
 						$ProductDetails = array(
 							"store_id"	=> $store , 
 							"status_id"	=> true
-							 );
+						);
 
 						$DetailsProduct[] = $ProductDetails; 
 						// echo "<br>";
@@ -282,7 +282,7 @@ class Produk extends CI_Controller {
 		$method = 'GET';
 		$responseApi = ngeCurl($url, '', $method);
 		$res = json_decode($responseApi,true);
- 
+
 		$data['store'] = $res['data'];
 
 		// print_r($res); 
@@ -310,12 +310,179 @@ class Produk extends CI_Controller {
 		template($template , $data);		
 	}
 
-	public function edit()
+	public function edit($productid='')
 	{
+		################
+		$userdata  = $this->session->userdata('userdata');
+		$jwt = $userdata['token'];   
+
+		$url = linkservice('stoksis') ."api/products/".$productid."/"; 
+		$method = 'GET';
+		$responseApi = ngeCurl($url,'', $method , $jwt);
+		$res = json_decode($responseApi,true); 
+		$data['produk'] = $res['data']; 
+		$produk = $res['data'];
+
+		// print_r($data['produk']);
+		############
+
+		##### get kategori  
+		$url 			= linkservice('category') ."api/category/";
+		$method 		= 'GET';
+		$responseApi 	= ngeCurl($url,'', $method , $jwt);
+		$res 			= json_decode($responseApi,true); 
+		$data['category'] = $res['data']; 
+		##### end get kategori #####
+		
+		############
+		foreach ($produk['ProductDetails'] as $toko) {
+			$stor[] = $toko['store_id'];  
+		}  
+
+		$adanya = array_count_values($stor);
+
+		foreach (array_keys($adanya) as $adadistore) {
+			// $adastore[] = $adadistore;
+			// echo
+			$adastore[] = $this->bantuan_storebyid($adadistore);
+			// /api/storebyid
+		}
+		$data['storenya'] = $adastore;
+		############
+
+
+		####
+		$isowner = ($userdata['is_owner'] == '' or $userdata['is_owner'] == 0 ) ? 0 : $userdata['is_owner'];
+		$url = linkservice('store').'api/storebyuser?userId='.@$userdata['id'].'&IsOwner='.$isowner;//linkservice('stoksis') ."api/accounts/login/";
+		$method = 'GET';
+		$responseApi = ngeCurl($url, '', $method);
+		$res = json_decode($responseApi,true);
+		$data['store'] = $res['data'];
+
+		// print_r($data['store']);
+		###
+
+
+
+		### PROSES 
+		$userdata = $this->session->userdata('userdata');
+
+		if ($_POST) { 
+
+			$Insert['product_name'] = @$_POST['namaproduk'];
+			$Insert['product_merk'] = @$_POST['merk'];
+			$Insert['category_id'] = @$_POST['CategoryId'];
+			$Insert['sub_category_id'] = @$_POST['SubKategori'];
+			$Insert['price_buy'] = @$_POST['PriceBuy'];
+			$Insert['price_sale'] = @$_POST['PriceSale'];
+			$Insert['price_capital'] = "0"; //@$_POST['SubKategori'];
+			$Insert['id_user_owner'] = @$userdata['id'];
+
+			$Insert['product_size'] = @$_POST['product_size'];
+			$Insert['product_color'] = @$_POST['product_color'];
+			$Insert['product_capacity'] = @$_POST['product_capacity'];
+			$Insert['product_desc'] = @$_POST['product_desc'];
+
+			//$Insert['product_color'] = @$_POST['warna'];
+			// $Insert['product_size'] = @$_POST['ukuran'];
+			// $Insert['product_capacity'] = @$_POST['kapasitas']; 
+
+			$config['upload_path'] = './uploads/produk/';
+			$config['allowed_types'] = 'gif|jpg|png';
+			$config['max_size']  = '100000';
+			$config['max_width']  = '102411';
+			$config['max_height']  = '76811';
+
+			$this->load->library('upload', $config);
+			if ( ! $this->upload->do_upload()){
+
+				echo "&nbsp;";
+				$error = array('error' => $this->upload->display_errors());
+
+				$Insert['ProductsImage'] = [ array( "path" => @base64_encode($datax)) ]; 
+			}
+			else {
+
+				$data = array('upload_data' => $this->upload->data());
+				// print_r($data);
+				$path = base_url('uploads/produk/'.$data['upload_data']['file_name']);
+				$type = pathinfo($path, PATHINFO_EXTENSION);
+				$datax = file_get_contents($path); 
+
+				$Insert['ProductsImage'] = [ array( "path" => base64_encode($datax)) ]; 
+			} 
+
+			$quantity = $_POST['qty'];
+
+			$no = 0;
+			$ProductDetails = array();
+			foreach ($_POST['Store'] as $store) {
+				// jika lebih dari 0 data / kuantiti
+				if ($quantity[$no] > 0 and $_POST['Store'][$no]) {
+					// echo "testing";
+					for ($i=0; $i < $quantity[$no]; $i++) { 
+						$ProductDetails = array(
+							"store_id"	=> $store , 
+							"status_id"	=> true
+						);
+
+						$DetailsProduct[] = $ProductDetails;  
+					}
+
+				} else { 
+
+				}
+
+				$no++;
+			}
+
+			$Insert['ProductDetails'] = $DetailsProduct; 
+			
+			$jwt = $userdata['token']; 
+			@$parameter = $Insert; 
+
+			## EDIT PRODUCT
+
+			$url = linkservice('stoksis') ."api/products/";
+			$method = 'PUT';
+			$responseApi = ngeCurl($url, json_encode($parameter), $method , $jwt);
+			$res = json_decode($responseApi,true); 
+
+			print_r($responseApi);
+			if ($res['status']==201 or $res == '') {
+				
+				$this->session->set_flashdata('message', "<script type='text/javascript'> swal('Yeay !', '" . $res['message'] . "', 'success'); </script>");
+
+				redirect('setting/produk','refresh');
+
+			} else {
+				print_r($res['message']);
+				exit();
+
+				$this->session->set_flashdata('message', "<script type='text/javascript'> swal('Uuuh !', '" . $res['message'] . "', 'error'); </script>");
+
+				redirect('setting/produk','refresh');
+			}     
+		}
+
+		### END 
+
 		$data['title'] = 'Edit Produk';
 		$template = 'setting/editproduk';
 
 		template($template , $data);		
+	}
+
+	public function bantuan_storebyid($adadistore='')
+	{
+		$userdata  = $this->session->userdata('userdata');
+		$jwt = $userdata['token'];   
+		$url = linkservice('store') ."api/storebyid?storeId=".$adadistore; 
+		$method = 'GET';
+		$responseApi = ngeCurl($url,'', $method , $jwt);
+		$resi = json_decode($responseApi,true); 
+		$ada = $resi['data']; 
+		return $ada[0]['StoreName'];
 	}
 
 	public function assign()

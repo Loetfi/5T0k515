@@ -1,239 +1,233 @@
-        <div class="content">
-          <div class="container-fluid">
-            <div class="row">
-              <div class="content-header">
-                <h1>
-                  Pengaturan
-                  <a href="#" class="btn btn-success btn-fill pull-right">Fitur Premium
-                  </a>
-                </h1>
-                <div class="divider-blue">
-                </div>
-                <ol class="breadcrumb">
-                  <li>
-                    <a href="#">
-                      Pengaturan
-                    </a>
-                  </li> 
-                  <li>
-                    <a href="<?php echo site_url('setting/tim') ?>">
-                      Atur Tim
-                    </a>
-                  </li> 
-                  <li class="active">Edit Tim
-                  </li>
-                </ol>
-              </div>
+  <!-- <?php print_r($staff); ?>  -->
+  <?php echo $this->session->flashdata('message'); ?>
+  <div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="content-header">
+          <h1>
+            Pengaturan
+            <a href="#" class="btn btn-success btn-fill pull-right">Fitur Premium
+            </a>
+          </h1>
+          <div class="divider-blue">
+          </div>
+          <ol class="breadcrumb">
+            <li>
+              <a href="#">
+                Pengaturan
+              </a>
+            </li> 
+            <li>
+              <a href="<?php echo site_url('setting/tim') ?>">
+                Atur Tim
+              </a>
+            </li> 
+            <li class="active">Edit Tim
+            </li>
+          </ol>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="header">
+              <h4 class="title color-grey-light">Ubah Profil Tim Kamu
+              </h4> 
             </div>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="card">
-                  <div class="header">
-                    <h4 class="title color-grey-light">Ubah Profil Tim Kamu
-                    </h4> 
-                  </div>
-                  <br>
-                  <form id="" action="#" method="" novalidate="">
-                    <div class="row">
-                      <div class="col-md-4 col-md-offset-4">
-                        <div class="text-center bg-form">  
-                          <div class="img-section">
-                            <label for="file-upload" class="p-0 custom-file-upload">
-                              <img src="<?php echo base_url('assets/img/icon/icon-delete_img.png');?>" id="" alt="Profile picture" 
-                              style="float:right;margin-top:-61px;margin-right:-118px;position: relative;">
-                            </label>
-                            <img src="<?php echo base_url('assets/img/icon/icon-basictim.svg');?>" id="imagePreview" class="fp-toko-edit" alt="Profile picture">
-                            <span class="fake-icon-edit" id="PicUpload" style="color: #000;"> 
-                            </span>
-                            
-                            <div class="col-lg-12"> 
+            <br> 
+              <?php echo form_open_multipart('setting/tim/edit/'.$id_staff); ?>
+              <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                  <div class="text-center bg-form">  
+                    <div class="img-section">
+                      <label for="file-upload" class="p-0 custom-file-upload">
+                        <img src="<?php echo base_url('assets/img/icon/icon-delete_img.png');?>" id="" alt="Profile picture" 
+                        style="float:right;margin-top:-61px;margin-right:-118px;position: relative;"></label>
 
-                            </div>
-                          </div> 
-                          <input class="custom-upload" name="file-upload" id="file-upload" type="file"/>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-4 col-md-offset-4">
-                        <div class="form-group"> 
-                          <input class="form-control" value="<?php echo $staff['username'] ?>" type="text" name="usernam"  placeholder="username" required="true">
-                        </div>
-                      </div>
-                    </div>
-                   <!--  <div class="row">
-                      <div class="col-md-4 col-md-offset-4">
-                        <div class="form-group"> 
-                          <select class="selectpicker form-control">
-                            <option selected="" disabled="" style="font-size: 11px;">- Level Akses -
-                            </option>
-                            <option style="font-size: 11px;">Admin
-                            </option>
-                            <option style="font-size: 11px;">Superuser
-                            </option>
-                          </select> 
-                        </div>
-                      </div>
-                    </div> -->
-                    <div class="row"> 
-                      <div class="col-md-4 col-md-offset-4">
-                        <div class="form-group">
-                          <input class="form-control" value="<?php echo $staff['firstname'] ?>" type="text" name="firstname" required="true" placeholder="Nama Depan ">
+                        <?php if(empty($staff['image_path']) or  $staff['image_path'] == ""){ ?>
+                        <img src="<?php echo base_url('assets/img/icon/icon-basictim.svg');?>" id="imagePreview" class="fp-toko-edit" alt="Profile picture">
+                        <?php } else { ?>
+                        <img src="<?php echo $staff['image_path'];?>" id="imagePreview" class="fp-toko-edit" alt="Profile picture"> 
+                        <?php } ?>
+                        <span class="fake-icon-edit" id="PicUpload" style="color: #000;"> 
+                        </span>
+
+                        <div class="col-lg-12"> 
+
                         </div>
                       </div> 
-                    </div>
-                      <div class="row"> 
-                      <div class="col-md-4 col-md-offset-4">
-                        <div class="form-group">
-                          <input class="form-control" value="<?php echo $staff['lastname'] ?>" type="text" name="lastname" required="true" placeholder="Nama Belakang ">
-                        </div>
-                      </div> 
-                    </div>
-                    <div class="row"> 
-                      <div class="col-md-4 col-md-offset-4">
-                        <div class="form-group">
-                          <input class="form-control" value="<?php echo $staff['email'];?>" type="text" name="email" required="true" placeholder="Email">
-                        </div>
-                      </div> 
-                    </div>
-                    <div class="row"> 
-                      <div class="col-md-4 col-md-offset-4">
-                        <div class="input-group" style="width:100%;">
-                          <input type="password" placeholder="Kata Sandi" class="form-control pwd" value="" required>
-                          <span class="input-group-btn" style="border-bottom: 1px solid  #a0a9b4"> 
-                            <a href="#" class="icon-pass reveal pass" style="left: 5px;background-color: transparent;">
-                              <img src="<?php echo base_url('assets/img/icon/icon-hide_passwd.svg');?>" style="width: 20px !important;" id="fa-eye" alt="User Image">
-                              <img src="<?php echo base_url('assets/img/icon/icon-viewpasswd.svg');?>" style="width: 20px !important;display: none;" id="fa-eye-slash" alt="User Image">
-                            </a> 
-                          </span>          
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row"> 
-                      <div class="col-md-4 col-md-offset-4">
-                        <div class="input-group" style="width:100%;">
-                          <input type="password" placeholder="Ulangi Kata Sandi" class="form-control pwd2" value="" required>
-                          <span class="input-group-btn" style="border-bottom: 1px solid  #a0a9b4"> 
-                           <a href="#" class="icon-pass reveal2 pass" style="left: 5px;background-color: transparent;">
-                            <img src="<?php echo base_url('assets/img/icon/icon-hide_passwd.svg');?>" style="width: 20px !important;" id="fa-eye2" alt="User Image">
-                            <img src="<?php echo base_url('assets/img/icon/icon-viewpasswd.svg');?>" style="width: 20px !important;display: none;" id="fa-eye-slash2" alt="User Image">
-                          </a>
-                        </span>          
-                      </div>
+                      <input class="custom-upload" name="userfile" id="file-upload" type="file"/>
                     </div>
                   </div>
-                  <br>
-                  <div class="row">
-                    <div class="col-md-4 col-md-offset-4">
-                      <div class="footer"> 
-                        <a href="<?php echo site_url('setting/tim/editsummary/') ?>" class="btn btn-warning btn-fill btn-wd btn-next btn-block">Berikutnya</a> 
-                        <div class="clearfix">
-                        </div>
-                      </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4 col-md-offset-4">
+                    <div class="form-group"> 
+                      <input class="form-control" value="<?php echo $staff['username'] ?>" type="text" name="username"  placeholder="username" required="true">
                     </div>
                   </div>
-                </form>
+                </div> 
+                <div class="row"> 
+                  <div class="col-md-4 col-md-offset-4">
+                    <div class="form-group">
+                      <input class="form-control" value="<?php echo $staff['firstname'] ?>" type="text" name="firstname" required="true" placeholder="Nama Depan ">
+                    </div>
+                  </div> 
+                </div>
+                <div class="row"> 
+                  <div class="col-md-4 col-md-offset-4">
+                    <div class="form-group">
+                      <input class="form-control" value="<?php echo $staff['lastname'] ?>" type="text" name="lastname" required="true" placeholder="Nama Belakang ">
+                    </div>
+                  </div> 
+                </div>
+                <div class="row"> 
+                  <div class="col-md-4 col-md-offset-4">
+                    <div class="form-group">
+                      <input class="form-control" value="<?php echo $staff['email'];?>" type="text" name="email" required="true" placeholder="Email">
+                    </div>
+                  </div> 
+                </div>
+                <div class="row"> 
+                  <div class="col-md-4 col-md-offset-4">
+                    <div class="input-group" style="width:100%;">
+                      <input type="password" placeholder="Kata Sandi" class="form-control pwd" value="">
+                      <span class="input-group-btn" style="border-bottom: 1px solid  #a0a9b4"> 
+                        <a href="#" class="icon-pass reveal pass" style="left: 5px;background-color: transparent;">
+                          <img src="<?php echo base_url('assets/img/icon/icon-hide_passwd.svg');?>" style="width: 20px !important;" id="fa-eye" alt="User Image">
+                          <img src="<?php echo base_url('assets/img/icon/icon-viewpasswd.svg');?>" style="width: 20px !important;display: none;" id="fa-eye-slash" alt="User Image">
+                        </a> 
+                      </span>          
+                    </div>
+                  </div>
+                </div>
+                <div class="row"> 
+                  <div class="col-md-4 col-md-offset-4">
+                    <div class="input-group" style="width:100%;">
+                      <input type="password" placeholder="Ulangi Kata Sandi" class="form-control pwd2" value="">
+                      <span class="input-group-btn" style="border-bottom: 1px solid  #a0a9b4"> 
+                       <a href="#" class="icon-pass reveal2 pass" style="left: 5px;background-color: transparent;">
+                        <img src="<?php echo base_url('assets/img/icon/icon-hide_passwd.svg');?>" style="width: 20px !important;" id="fa-eye2" alt="User Image">
+                        <img src="<?php echo base_url('assets/img/icon/icon-viewpasswd.svg');?>" style="width: 20px !important;display: none;" id="fa-eye-slash2" alt="User Image">
+                      </a>
+                    </span>          
+                  </div>
+                </div>
               </div>
-            </div>
+              <br>
+              <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                  <div class="footer"> 
+                     
+                    <button class="btn btn-warning btn-fill btn-wd btn-next btn-block">Berikutnya </button>
+                    <div class="clearfix">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="modal brandmodal fade" id="saluranOnline" tabindex="-1" role="dialog" aria-labelledby="">
-    <div class="modal-dialog" role="document" style="width: 28%;">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">×
+</div>
+</div>
+<div class="modal brandmodal fade" id="saluranOnline" tabindex="-1" role="dialog" aria-labelledby="">
+  <div class="modal-dialog" role="document" style="width: 28%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×
+        </button>
+        <h4 class="modal-title">
+          <img src="<?php echo base_url('assets/img/social/instagram-logo.svg');?>" class="modal-logo"> Sign In to Blibli
+        </h4>
+      </div>
+      <div class="modal-body">
+        <form class="" id="" role="form" method="POST" action="">
+          <div class="form-group"> 
+            <input id="signupEmail" type="email" required="" maxlength="50" class="form-control" placeholder="Masukkan Username/Email Anda">
+          </div> 
+          <div class="form-group"> 
+            <input id="signupPassword" required="" type="password" maxlength="25" class="form-control" placeholder="Masukkkan Password Anda" length="40">
+          </div>
+          <div class="form-group">
+            <button id="signupSubmit" type="submit" class="btn btn-info btn-fill btn-block">Login
+            </button>
+          </div> 
+          <br>
+        </form>
+      </div> 
+    </div>
+  </div>
+</div>
+<div class="modal brandmodal fade" id="saluranOffline" tabindex="-1" role="dialog" aria-labelledby="">
+  <div class="modal-dialog" role="document" style="width: 28%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×
+        </button> 
+        <h4 class="modal-title">
+          <img src="<?php echo base_url('assets/img/social/instagram-logo.svg');?>" class="modal-logo">
+        </h4>
+      </div>
+      <div class="modal-body p-t-0"> 
+        <h4 class="text-center m-t-0"> 
+          Instagram
+        </h4>
+        <p class="text-center color-blue">Tambahkan Instagram sebagai salah satu saluran penjualan secara offline
+        </p>
+        <div class="form-group">
+          <button id="signupSubmit" type="submit" class="btn btn-success btn-fill btn-block">Tambahkan
           </button>
-          <h4 class="modal-title">
-            <img src="<?php echo base_url('assets/img/social/instagram-logo.svg');?>" class="modal-logo"> Sign In to Blibli
-          </h4>
         </div>
-        <div class="modal-body">
-          <form class="" id="" role="form" method="POST" action="">
-            <div class="form-group"> 
-              <input id="signupEmail" type="email" required="" maxlength="50" class="form-control" placeholder="Masukkan Username/Email Anda">
-            </div> 
-            <div class="form-group"> 
-              <input id="signupPassword" required="" type="password" maxlength="25" class="form-control" placeholder="Masukkkan Password Anda" length="40">
-            </div>
-            <div class="form-group">
-              <button id="signupSubmit" type="submit" class="btn btn-info btn-fill btn-block">Login
-              </button>
-            </div> 
-            <br>
-          </form>
-        </div> 
-      </div>
+      </div> 
     </div>
   </div>
-  <div class="modal brandmodal fade" id="saluranOffline" tabindex="-1" role="dialog" aria-labelledby="">
-    <div class="modal-dialog" role="document" style="width: 28%;">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">×
-          </button> 
-          <h4 class="modal-title">
-            <img src="<?php echo base_url('assets/img/social/instagram-logo.svg');?>" class="modal-logo">
-          </h4>
-        </div>
-        <div class="modal-body p-t-0"> 
-          <h4 class="text-center m-t-0"> 
-            Instagram
-          </h4>
-          <p class="text-center color-blue">Tambahkan Instagram sebagai salah satu saluran penjualan secara offline
-          </p>
-          <div class="form-group">
-            <button id="signupSubmit" type="submit" class="btn btn-success btn-fill btn-block">Tambahkan
-            </button>
-          </div>
-        </div> 
+</div>
+<div class="modal brandmodal fade" id="Unlink" tabindex="-1" role="dialog" aria-labelledby="">
+  <div class="modal-dialog" role="document" style="width: 28%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×
+        </button> 
+        <h4 class="modal-title">
+          <img src="<?php echo base_url('assets/img/social/tokopedia-logo.svg');?>" class="modal-logo">
+        </h4>
       </div>
+      <div class="modal-body p-t-0"> 
+        <h6 class="text-center m-10">Terhubung sebagai XYZ Mega Store
+        </h6>
+        <p class="text-center color-blue">Putuskan Tokopedia sebagai salah satu saluran penjualan online
+        </p>
+        <div class="form-group">
+          <button id="signupSubmit" type="submit" class="btn btn-danger btn-fill btn-block">Putuskan
+          </button>
+        </div>
+      </div> 
     </div>
   </div>
-  <div class="modal brandmodal fade" id="Unlink" tabindex="-1" role="dialog" aria-labelledby="">
-    <div class="modal-dialog" role="document" style="width: 28%;">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">×
-          </button> 
-          <h4 class="modal-title">
-            <img src="<?php echo base_url('assets/img/social/tokopedia-logo.svg');?>" class="modal-logo">
-          </h4>
+</div>
+<div class="modal brandmodal fade" id="alamattoko" tabindex="-1" role="dialog" aria-labelledby="">
+  <div class="modal-dialog modal-lg" role="document" >
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×
+        </button> 
+        <div class="form-group pull-right">
+          <label class="sr-only">Search
+          </label>
+          <input type="input" class="form-control" placeholder=" Cari Lokasi Disini">
         </div>
-        <div class="modal-body p-t-0"> 
-          <h6 class="text-center m-10">Terhubung sebagai XYZ Mega Store
-          </h6>
-          <p class="text-center color-blue">Putuskan Tokopedia sebagai salah satu saluran penjualan online
-          </p>
-          <div class="form-group">
-            <button id="signupSubmit" type="submit" class="btn btn-danger btn-fill btn-block">Putuskan
-            </button>
-          </div>
-        </div> 
       </div>
+      <div class="modal-body p-t-0"> 
+        <iframe width="100%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.co.uk/maps?f=q&source=s_q&hl=en&geocode=&q=15+Springfield+Way,+Hythe,+CT21+5SH&aq=t&sll=52.8382,-2.327815&sspn=8.047465,13.666992&ie=UTF8&hq=&hnear=15+Springfield+Way,+Hythe+CT21+5SH,+United+Kingdom&t=m&z=14&ll=51.077429,1.121722&output=embed">
+        </iframe>
+      </div> 
     </div>
   </div>
-  <div class="modal brandmodal fade" id="alamattoko" tabindex="-1" role="dialog" aria-labelledby="">
-    <div class="modal-dialog modal-lg" role="document" >
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">×
-          </button> 
-          <div class="form-group pull-right">
-            <label class="sr-only">Search
-            </label>
-            <input type="input" class="form-control" placeholder=" Cari Lokasi Disini">
-          </div>
-        </div>
-        <div class="modal-body p-t-0"> 
-          <iframe width="100%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.co.uk/maps?f=q&source=s_q&hl=en&geocode=&q=15+Springfield+Way,+Hythe,+CT21+5SH&aq=t&sll=52.8382,-2.327815&sspn=8.047465,13.666992&ie=UTF8&hq=&hnear=15+Springfield+Way,+Hythe+CT21+5SH,+United+Kingdom&t=m&z=14&ll=51.077429,1.121722&output=embed">
-          </iframe>
-        </div> 
-      </div>
-    </div>
-  </div>
+</div>
 </body>
 
 

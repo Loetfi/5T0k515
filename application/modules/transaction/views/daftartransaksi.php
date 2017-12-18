@@ -22,7 +22,7 @@
         <div class="header"> 
           <div class="row"> 
             <div class="col-md-12">
-              <form class="form-inline pull-right">
+              <form class="form-inline pull-right" action="" method="GET" target="_blank">
                 <div class="form-group">
                   <label class="sr-only">Search
                   </label>
@@ -34,7 +34,7 @@
                       <img class="icon-filter2" src="<?php echo base_url('assets/img/icon/icon-filter.svg');?>" style="float: left;width: 15px;"> Semua Status
                       <img class="icon-drop_small" src="<?php echo base_url('assets/img/icon/icon-drop_small.svg');?>" style="float: right;width: 15px;">
                     </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <!-- <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                       <li>
                         <a href="#" style="font-weight: 300;">Semua Status
                         </a>
@@ -51,7 +51,7 @@
                         <a href="#" style="font-weight: 300;">Transaksi Batal
                         </a>
                       </li> 
-                    </ul>
+                    </ul> -->
                   </div>
                 </div> 
                 <div class="input-group">
@@ -59,14 +59,14 @@
                     <i class="fa fa-calendar">
                     </i>
                   </div>
-                  <input type="text" id="date-input" data-type="date" name="" placeholder="Tanggal Mulai" class="form-control bordered" style="color: #888888;font-size: 12px;border-radius: 0px 4px 4px 0px !important;">
+                  <input type="text" id="date-input" data-type="date" name="startdate" placeholder="Tanggal Mulai" class="form-control bordered" style="color: #888888;font-size: 12px;border-radius: 0px 4px 4px 0px !important;">
                 </div> 
                 <div class="input-group">
                   <div class="input-group-addon">
                     <i class="fa fa-calendar">
                     </i>
                   </div>
-                  <input type="text" id="date-input2" data-type="date" name="" placeholder="Tanggal Berakhir" class="form-control bordered" style="color: #888888;font-size: 12px;border-radius: 0px 4px 4px 0px !important;">
+                  <input type="text" id="date-input2" data-type="date" name="enddate" placeholder="Tanggal Berakhir" class="form-control bordered" style="color: #888888;font-size: 12px;border-radius: 0px 4px 4px 0px !important;">
                 </div>  
                 <div id="material-header-holder" style="display:none">
                   <div class="ui-datepicker-material-header">
@@ -83,14 +83,15 @@
                   </div>
                 </div>
 
-
+                <button class="btn">Filter</button>
 
               </form>
             </div>
           </div>
         </div>
         <div class="content table-responsive table-full-width">
-          <table class="table">
+
+          <table class="table table-hover " id="example" width="100%" cellspacing="0">
             <thead>
               <th>
               </th> 
@@ -105,25 +106,22 @@
             </thead>
             <tbody class="text-center">
               <?php foreach ($invoice as $inv) { ?>
-              <tr> 
-                <td>
-                  <img src="<?php echo base_url('assets/img/user.jpg');?>"/>
-                </td>
-                <td>INV.001.001.XX
-                </td>
-                <td>ZARA - Jaket Kampus/Varsity Merah
-                </td> 
-                <td>
-                  <img class="social" src="<?php echo base_url('assets/img/icon/icon-ig.svg');?>"> Instagram
-                </td>    
-                <td class="td-actions text-right"> 
-                  <a class="btn btn-default btn-simple" href="<?php echo site_url('transaction/detail');?>">
-                    <i class="fa fa-angle-right">
-                    </i>
-                  </a>  
-                </td>
-              </tr>  
-              <?php } ?>
+
+                  <tr>  
+                    <td><?php echo $inv['InvoiceNumber']; ?></td>
+                    <td><?php echo $inv['ProductId']; ?></td> 
+                    <td><?php echo $inv['ChannelId']; ?>
+                      <!-- <img class="social" src="<?php echo base_url('assets/img/icon/icon-ig.svg');?>"> Instagram -->
+                    </td>    
+                    <td class="td-actions text-right"> 
+                      <a class="btn btn-default btn-simple" href="<?php echo site_url('pos/detail/'.$inv['SalesId']) ?>">
+                        <i style="color: #333;" class="fa fa-angle-right">
+                        </i>
+                      </a>  
+                    </td>
+                  </tr> 
+
+                  <?php } ?> 
 
             </tbody>
           </table>
@@ -132,38 +130,26 @@
     </div>
   </div>
 </div>
-</div>
-<div class="modal brandmodal fade" id="hapus" tabindex="-1" role="dialog" aria-labelledby="">
-  <div class="modal-dialog" role="document" style="width: 28%;">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">×
-        </button>
-        <h4 class="modal-title m-t-40">
-          Hapus Tim
-        </h4>
-      </div>
-      <div class="modal-body">
-        <h6 class="text-center m-10 m-b-30">Apakah Anda yakin untuk menghapus anggota tim ini?
-        </h6>
-        <div class="form-group ">
-          <button id="signupSubmit" type="submit" class="btn btn-danger btn-fill">Batal
-          </button>
-          <button id="signupSubmit" type="submit" class="btn btn-info btn-fill">Ya
-          </button>
-        </div> 
-      </div> 
-    </div>
-  </div>
-</div>
+</div> 
 </body>
 
-  <script src="<?php echo base_url('assets/js/jquery-ui-1.14.min.js'); ?>" type="text/javascript">
-  </script>
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#example').DataTable({
+              "order": [[ 2, "desc" ]]
+    });
+  } );
+</script>
+
+
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
 
 
 
-
+<script src="<?php echo base_url('assets/js/jquery-ui-1.14.min.js'); ?>" type="text/javascript">
+</script> 
 
 <script type="text/javascript">
   var headerHtml = $("#material-header-holder .ui-datepicker-material-header");

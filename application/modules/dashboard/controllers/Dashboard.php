@@ -73,6 +73,18 @@ class Dashboard extends CI_Controller {
 
 		## end 
 
+		## get count sales 
+
+		$url = linkservice('sales') ."api/dashboardbyuserid?UserId=".$sesi['id']."&IsOwner=".$sesi['is_owner'];
+		$method = 'GET';
+		$responseApi = ngeCurl($url,'', $method , $jwt);
+		$res = json_decode($responseApi,true);
+		$data['salescount'] = $res['data'][0]; 
+
+		// http://stoksis-sales-services.azurewebsites.net/api/dashboardbyuserid?UserId=196&IsOwner=1
+
+		#### end 
+
 
 		$template = 'dashboard/dashboard';
 		$data['title'] = 'Dashboard';

@@ -1,92 +1,100 @@
-     <div class="content">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="content-header">
-            <h1>
+<?php echo $this->session->flashdata('message'); ?>
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="content-header">
+        <h1>
+          Pengaturan
+          <a href="#" class="btn btn-success btn-fill pull-right">Fitur Premium
+          </a>
+        </h1>
+        <div class="divider-blue">
+        </div>
+        <ol class="breadcrumb">
+          <li>
+            <a href="#">
               Pengaturan
-              <a href="#" class="btn btn-success btn-fill pull-right">Fitur Premium
-              </a>
-            </h1>
-            <div class="divider-blue">
-            </div>
-            <ol class="breadcrumb">
-              <li>
-                <a href="#">
-                  Pengaturan
-                </a>
-              </li> 
-              <li>
-                <a href="<?php echo site_url('setting/tim') ?>">
-                  Atur Tim
-                </a>
-              </li> 
-              <li class="active">Edit Tim
-              </li>
-            </ol>
+            </a>
+          </li> 
+          <li>
+            <a href="<?php echo site_url('setting/tim') ?>">
+              Atur Tim
+            </a>
+          </li> 
+          <li class="active">Edit Tim
+          </li>
+        </ol>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="header">
+            <h4 class="title color-grey-light">Daftarkan Tim, saatnya anda mendapatkan bantuan
+            </h4> 
           </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-            <div class="card">
-              <div class="header">
-                <h4 class="title color-grey-light">Daftarkan Tim, saatnya anda mendapatkan bantuan
-                </h4> 
-              </div>
-              <br>
-              <form id="" action="#" method="" novalidate="">
-                <div class="row">
-                  <div class="text-center">
-                    <div class="author">
-                     <img class="avatar-toko border-gray" src="<?php echo base_url('assets/img/icon/icon-basictim.svg');?>" alt="...">
-                     <a href="#"> 
-                      <h4 class="title font-bold font-16" style="line-height: 20px;">Zola Zoli
-                        <br>
-                        <small class="font-12 color-black">Owner
-                        </small>
-                      </h4>
-                    </a>
+          <br>
+          <!-- <?php print_r($this->session->all_userdata()); ?>  -->
+          <form id="" action="<?php echo site_url('setting/tim/editsummary/') ?>" method="POST">
+            <?php $this->load->view('editassignmodalstaff'); ?>
+            <?php $editstaff = $this->session->userdata('editstaff'); ?>
+            <div class="row">
+              <div class="text-center">
+                <div class="author">
+                 <img class="avatar-toko border-gray" src="<?php echo $editstaff['image_path'];?>" alt="...">
+                 <a href="#"> 
+                  <h4 class="title font-bold font-16" style="line-height: 20px;"><?php echo $editstaff['firstname'].' '.$editstaff['lastname']; ?>
                     <br>
-                    <a href="" class="font-12" data-toggle="modal" data-target="#assigntim" style="color: #9A9A9A;">Ditempatkan Pada Toko
-                    </a>
-                  </div>
-                </div>  
-                <div class="text-center tokolist" style="margin-left: -120px;">
-                  <img class="" src="<?php echo base_url('assets/img/icon/icon-daftartoko.svg');?>" alt="..." style="width: 25px;">
-                  <span class="tokolist-assign">XYZ Mega Store
-                  </span> 
-                </div> 
-                <div class="text-center tokolist" style="margin-left: -120px;">
-                  <img class="" src="<?php echo base_url('assets/img/icon/icon-daftartoko.svg');?>" alt="..." style="width: 25px;">
-                  <span class="tokolist-assign">ABC Mega Store
-                  </span> 
-                </div>   
+                    <small class="font-12 color-black"> 
+                      <?php echo ($editstaff['is_owner']) ? "Owner" : "Staff"; ?>
+                    </small>
+                  </h4>
+                </a>
                 <br>
-                <div class="text-center">
-                  <small>
-                    <a href="" class="color-grey-light button-edit-tim" data-toggle="modal" data-target="#assigntim">
-                      <i class="fa fa-pencil">
-                      </i>Ubah Penempatan Toko
-                    </a>
-                  </small>
-                </div>
-              </div> 
-              <br>
-              <div class="row">
-                <div class="text-center">
-                  <div class="footer"> 
-                    <a href="<?php echo site_url('setting/tim/addasign/') ?>" style="width: 120px" class="btn btn-wd btn-warning">Ubah</a> 
-                    <a href="#" style="width: 120px" class="btn btn-success btn-fill btn-wd" data-toggle="modal" data-target="#sukses" data-dismiss="modal">Simpan</a> 
-                    <div class="clearfix">
-                    </div>
-                  </div>
+                <a href="" class="font-12" data-toggle="modal" data-target="#assigntim" style="color: #9A9A9A;">Ditempatkan Pada Toko
+                </a>
+              </div>
+            </div>  
+
+            <?php foreach ($assigntoko as $at) { ?>
+            <div class="text-center tokolist" style="margin-left: -120px;">
+              <img class="" src="<?php echo base_url('assets/img/icon/icon-daftartoko.svg');?>" alt="..." style="width: 25px;">
+              <span class="tokolist-assign">
+                <?php //StoreAccessIdStoreIdStoreNameStoreUserId 
+                echo $at['StoreName']; ?>
+              </span> 
+            </div> 
+            <?php } ?> 
+
+            <br>
+            <div class="text-center">
+              <small>
+                <a href="" class="color-grey-light button-edit-tim" data-toggle="modal" data-target="#tempatkantoko">
+                  <i class="fa fa-pencil">
+                  </i>Ubah Penempatan Toko
+                </a>
+              </small>
+            </div>
+          </div> 
+          <br>
+          <div class="row">
+            <div class="text-center">
+
+              <div class="footer"> 
+                <a href="<?php echo site_url('setting/tim/addasign/') ?>" style="width: 120px" class="btn btn-wd btn-warning">Ubah</a> 
+                <button style="width: 120px" class="btn btn-success btn-fill btn-wd" >Simpan</button> 
+                <div class="clearfix">
                 </div>
               </div>
-            </form>
+
+            </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   </div>
+</div>
+</div>
 </div>
 </div>
 <div class="modal fade" id="assigntim" tabindex="-1" role="dialog" aria-labelledby="">
@@ -186,7 +194,7 @@
 
 
 <script type="text/javascript">
-    function onFinishTim(){
+  function onFinishTim(){
       //here you can do something, sent the form to server via ajax and show a success message with swal
       swal("Sukses", "Anda sukses memperbarui tim Anda", "success");
     }
@@ -195,25 +203,25 @@
     $().ready(function(){
       $('#tambahIdentitasToko').validate();
     }
-             );
+    );
   </script>
   <script>
     $('input[id=base-input]').change(function() {
       $('#fake-input').val($(this).val().replace("C:\\fakepath\\", ""));
     }
-                                    );
+    );
     <!--==================Javascript code for custom input type file on button ================-->
-      $('input[id=main-input]').change(function() {
-        console.log($(this).val());
-        var mainValue = $(this).val();
-        if(mainValue == ""){
-          document.getElementById("fake-btn").innerHTML = "Choose File";
-        }
-        else{
-          document.getElementById("fake-btn").innerHTML = mainValue.replace("C:\\fakepath\\", "");
-        }
+    $('input[id=main-input]').change(function() {
+      console.log($(this).val());
+      var mainValue = $(this).val();
+      if(mainValue == ""){
+        document.getElementById("fake-btn").innerHTML = "Choose File";
       }
-                                      );
+      else{
+        document.getElementById("fake-btn").innerHTML = mainValue.replace("C:\\fakepath\\", "");
+      }
+    }
+    );
     <!--=========================input type file change on button ends here====================-->
       //    ===================== snippet for profile picture change ============================ //
       function readURL(input) {
@@ -221,9 +229,9 @@
           var reader = new FileReader();
           reader.onload = function (e) {
             $('.imgCircle')
-              .attr('src', e.target.result)
-              .width(114)
-              .height(114);
+            .attr('src', e.target.result)
+            .width(114)
+            .height(114);
           };
           reader.readAsDataURL(input.files[0]);
         }
@@ -240,5 +248,5 @@
         $pwd.attr('type', 'password');
       }
     }
-                   );
+    );
   </script>
